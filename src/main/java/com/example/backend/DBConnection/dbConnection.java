@@ -68,6 +68,44 @@ public class dbConnection {
     }
 
     public User loginUser(String username, String password) throws SQLException {
+        query = "SELECT * " +
+                "FROM user";
+
+        resultSet = statement.executeQuery(query);
+
+        User obj = new User();
+
+        while (resultSet.next()){
+            if((resultSet.getString("username").equals(username)&&(resultSet.getString("password").equals(password)))){
+                obj.setfName(resultSet.getString("fname"));
+                obj.setlName(resultSet.getString("lname"));
+                obj.setAddress(resultSet.getString("address"));
+                obj.setContact(resultSet.getString("contact"));
+                obj.setEmail(resultSet.getString("email"));
+                obj.setUsername(resultSet.getString("username"));
+                obj.setPassword(resultSet.getString("hidden"));
+                obj.setUserID(resultSet.getInt("userID"));
+            }else if(resultSet.getString("username").equals(username)){
+                obj.setfName(resultSet.getString("fname"));
+                obj.setlName(resultSet.getString("lname"));
+                obj.setAddress(resultSet.getString(""));
+                obj.setContact(resultSet.getString(""));
+                obj.setEmail(resultSet.getString(""));
+                obj.setUsername(resultSet.getString("username"));
+                obj.setPassword(resultSet.getString("wrong"));
+                obj.setUserID(resultSet.getInt(""));
+            }else {
+                obj.setfName(resultSet.getString(""));
+                obj.setlName(resultSet.getString(""));
+                obj.setAddress(resultSet.getString(""));
+                obj.setContact(resultSet.getString(""));
+                obj.setEmail(resultSet.getString(""));
+                obj.setUsername(resultSet.getString(""));
+                obj.setPassword(resultSet.getString("invalid"));
+                obj.setUserID(resultSet.getInt(""));
+            }
+            break;
+        }
         return obj;
     }
 

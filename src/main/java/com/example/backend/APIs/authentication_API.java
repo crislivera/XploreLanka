@@ -2,7 +2,6 @@ package com.example.backend.APIs;
 
 import com.example.backend.Models.Admin;
 import com.example.backend.Models.Credentials;
-import com.example.backend.Models.Information_Provider;
 import com.example.backend.Models.User;
 import com.example.backend.controller.backendController;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -48,16 +47,6 @@ public class authentication_API {
         return controller.registerUser(user);
     }
 
-    @PostMapping("/signInIP")
-    @ResponseBody
-    public Information_Provider loginIP(@PathVariable String username, @PathVariable String pwd) throws SQLException {
-        return controller.loginIP(username, pwd);
-    }
 
-    @PostMapping("/signUpIP")
-    @ResponseBody
-    public boolean registerIP(@RequestBody Information_Provider ip) throws SQLException {
-        return controller.registerIP(ip);
-    }
 
 }

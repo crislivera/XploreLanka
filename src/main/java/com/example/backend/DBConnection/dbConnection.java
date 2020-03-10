@@ -1,7 +1,6 @@
 package com.example.backend.DBConnection;
 
 import com.example.backend.Models.Admin;
-import com.example.backend.Models.Information_Provider;
 import com.example.backend.Models.User;
 
 import java.sql.*;
@@ -113,5 +112,5 @@ public class dbConnection {
         return false;
     }
 
-    
+
 }

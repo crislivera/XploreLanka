@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ReadingFormAPI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ReadingFormAPI_jar</output-path>
+    <root id="archive" name="ReadingFormAPI.jar">
+      <element id="module-output" name="ReadingFormAPI" />
+    </root>
+  </artifact>
+</component>

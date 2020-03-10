@@ -113,18 +113,5 @@ public class dbConnection {
         return false;
     }
 
-    public Information_Provider loginIP(String username, String password) throws SQLException {
-        query = "SELECT * " +
-                "FROM information_provider";
-
-        resultSet = statement.executeQuery(query);
-
-        Information_Provider obj = new Information_Provider();
-
-        return obj;
-    }
-
-    public boolean registerIP(Information_Provider obj){
-        return false;
-    }
+    
 }

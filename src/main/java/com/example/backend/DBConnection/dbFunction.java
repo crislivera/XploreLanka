@@ -76,11 +76,48 @@ public class dbFunction {
 
     //delete the user from the database
     public boolean deleteUser(User user) {
-        return true;
+        PreparedStatement statement = null;
+        try{
+            statement = connection.prepareStatement("Delete from user where username = ?");
+            statement.setString(1,user.getUsername());
+            statement.execute();
+
+            System.out.println("Successfully Deleted!");
+
+            return true;
+        }
+
+        catch(Exception ex){
+            System.out.println("Error in deleting user : " + ex.getMessage());
+
+            return false;
+        }
+
     }
 
     //update the user from the database
     public User updateUser(User user) {
+        PreparedStatement statement = null;
+        try{
+            statement = connection.prepareStatement("Update user Set fname = ?, lname = ?, address = ?, contact = ?, email = ?, password = ? Where userID = ?");
+            statement.setString(1,user.getfName());
+            statement.setString(2,user.getlName());
+            statement.setString(3,user.getAddress());
+            statement.setString(4,user.getContact());
+            statement.setString(5,user.getEmail());
+            statement.setString(6,user.getPassword());
+            statement.setInt(7,user.getUserID());
+            statement.execute();
+
+            System.out.println("Successfully Updated!");
+            System.out.println("");
+            System.out.println(user);
+        }
+
+        catch(Exception ex){
+            System.out.println("Error in updating user : " + ex.getMessage());
+        }
+
         return user;
     }
 }

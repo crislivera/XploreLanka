@@ -63,6 +63,14 @@ public class dbConnection {
     }
 
     public boolean registerAdmin(Admin obj){
+        PreparedStatement statement = null;
+        try{
+            statement =co
+        }
+
+        catch{
+
+        }
         return false;
     }
 

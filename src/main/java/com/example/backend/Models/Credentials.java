@@ -1,8 +1,10 @@
 package com.example.backend.Models;
 
 public class Credentials {
+    String userID;
     String username;
     String pwd;
+    String pin;
 
     public String getUsername() {
         return username;

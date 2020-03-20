@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.DBConnection.dbConnection;
+import com.example.backend.DBConnection.dbFunction;
 import com.example.backend.Models.Admin;
 import com.example.backend.Models.User;
 
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 public class backendController {
 
     private dbConnection con = new dbConnection();
-
+    private dbFunction fun = new dbFunction();
 
 
 
@@ -33,14 +34,25 @@ public class backendController {
 
 
 
+    //connect API and database to delete an admin
     public boolean deleteAdmin(Admin admin) throws SQLException{
-        return con.deleteAdmin(admin);
+        return fun.deleteAdmin(admin);
+    }
+
+    //connect API and database to delete a user
+    public boolean deleteUser(User user) throws SQLException{
+        return fun.deleteUser(user);
     }
 
 
 
-
+    //connect API and database to update an admin
     public Admin updateAdmin(Admin admin) throws SQLException{
-        return con.updateAdmin(admin);
+        return fun.updateAdmin(admin);
+    }
+
+    //connect API and database to update a user
+    public User updateUser(User user) throws SQLException{
+        return fun.updateUser(user);
     }
 }

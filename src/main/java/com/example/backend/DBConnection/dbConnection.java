@@ -161,4 +161,11 @@ public class dbConnection {
     }
 
 
+    public boolean deleteAdmin(Admin obj) {
+        return true;
+    }
+
+    public Admin updateAdmin(Admin admin) {
+        return admin;
+    }
 }

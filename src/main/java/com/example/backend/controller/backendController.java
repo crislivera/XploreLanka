@@ -33,4 +33,14 @@ public class backendController {
 
 
 
+    public boolean deleteAdmin(Admin admin) throws SQLException{
+        return con.deleteAdmin(admin);
+    }
+
+
+
+
+    public Admin updateAdmin(Admin admin) throws SQLException{
+        return con.updateAdmin(admin);
+    }
 }

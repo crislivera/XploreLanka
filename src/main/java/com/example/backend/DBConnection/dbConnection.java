@@ -65,13 +65,26 @@ public class dbConnection {
     public boolean registerAdmin(Admin obj){
         PreparedStatement statement = null;
         try{
-            statement =co
+            statement =connection.prepareStatement("insert into admin values (?,?,?,?,?)");
+            statement.setString(1,obj.getfName());
+            statement.setString(2,obj.getlName());
+            statement.setString(3,obj.getUsername());
+            statement.setString(4,obj.getPassword());
+            statement.setString(5,obj.getContactNo());
+            statement.execute();
+
+            System.out.println("Successfully added!");
+            System.out.println("");
+            System.out.println(obj);
+
+            return true;
         }
 
-        catch{
+        catch(Exception ex){
+            System.out.println("Error in adding admin : " + ex.getMessage());
 
+            return false;
         }
-        return false;
     }
 
     public User loginUser(String username, String password) throws SQLException {
@@ -117,7 +130,34 @@ public class dbConnection {
     }
 
     public boolean registerUser(User obj){
-        return false;
+        PreparedStatement statement = null;
+
+        try{
+            statement = connection.prepareStatement("insert into user values (?,?,?,?,?,?,?,?,?)");
+            statement.setString(1,obj.getfName());
+            statement.setString(2,obj.getlName());
+            statement.setString(3,obj.getAddress());
+            statement.setString(4,obj.getContact());
+            statement.setString(5,obj.getEmail());
+            statement.setString(6,obj.getUsername());
+            statement.setString(7,obj.getPassword());
+            statement.setInt(8,obj.getUserID());
+            statement.setBoolean(9,obj.isVerify());
+            statement.execute();
+
+            System.out.println("Successfully Added!");
+            System.out.println("");
+            System.out.println(obj);
+
+            return true;
+        }
+
+        catch(Exception ex){
+            System.out.println("Error in adding user : " + ex.getMessage());
+
+            return false;
+        }
+
     }
 
 

@@ -15,6 +15,7 @@ public class User implements Comparable<User>{
     String password;
     int userID;
     boolean verify;
+    String OTP;
 
 
     public User() {
@@ -30,6 +31,18 @@ public class User implements Comparable<User>{
         this.username = username;
         this.password = password;
         this.userID = userID;
+    }
+
+    //while verifying OTP
+    public User(String fName, String lName, String address, String contact, String email, String username, String password, String OTP) {
+        this.fName = fName;
+        this.lName = lName;
+        this.address = address;
+        this.contact = contact;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.OTP = OTP;
     }
 
     //while registering
@@ -154,5 +167,13 @@ public class User implements Comparable<User>{
                 ", userID=" + userID +
                 ", verify=" + verify +
                 '}';
+    }
+
+    public String getOTP() {
+        return OTP;
+    }
+
+    public void setOTP(String OTP) {
+        this.OTP = OTP;
     }
 }

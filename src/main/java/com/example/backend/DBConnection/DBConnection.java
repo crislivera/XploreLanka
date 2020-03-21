@@ -183,4 +183,25 @@ public class DBConnection {
         }
     }
 
+    public boolean verifyUser(User obj){
+        query = "SELECT OTP,username FROM user";
+        try {
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next())
+                if((resultSet.getString("username").equals(obj.getUsername()))&&(resultSet.getString("OTP").equals(obj.getOTP()))){
+                    PreparedStatement statement = null;
+                    statement = connection.prepareStatement("Update user Set verified=? Where username = ? ");
+                    statement.setBoolean(1,true);
+                    statement.setString(2,obj.getUsername());
+                    statement.execute();
+                }
+            System.out.println("User Verified!");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

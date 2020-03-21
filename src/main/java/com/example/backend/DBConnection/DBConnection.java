@@ -164,4 +164,23 @@ public class DBConnection {
 
     }
 
+
+    public void resendOTP(User obj){
+        PreparedStatement statement = null;
+        VerifyUser verifyUser = new VerifyUser(obj.getContact());
+        try{
+            statement = connection.prepareStatement("Update user Set OTP = ? Where username = ?");
+            statement.setString(1,verifyUser.getOTP());
+            statement.setString(2,obj.getUsername());
+            statement.execute();
+
+            System.out.println("Successfully Updated!");
+            System.out.println(obj);
+        }
+
+        catch(Exception ex){
+            System.out.println("Error in updating admin : " + ex.getMessage());
+        }
+    }
+
 }

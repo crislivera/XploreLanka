@@ -1,16 +1,16 @@
 package com.example.backend.controller;
 
-import com.example.backend.DBConnection.dbConnection;
-import com.example.backend.DBConnection.dbFunction;
+import com.example.backend.DBConnection.DBConnection;
+import com.example.backend.DBConnection.DBFunction;
 import com.example.backend.Models.Admin;
 import com.example.backend.Models.User;
 
 import java.sql.SQLException;
 
-public class backendController {
+public class BackendController {
 
-    private dbConnection con = new dbConnection();
-    private dbFunction fun = new dbFunction();
+    private DBConnection con = new DBConnection();
+    private DBFunction fun = new DBFunction();
 
 
 

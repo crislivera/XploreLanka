@@ -2,7 +2,7 @@ package com.example.backend.APIs;
 
 import com.example.backend.Models.Admin;
 import com.example.backend.Models.User;
-import com.example.backend.controller.backendController;
+import com.example.backend.controller.BackendController;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import java.sql.SQLException;
 @SpringBootApplication
 @RestController
 
-public class adminFunction_API {
+public class AdminFunction_API {
 
-    backendController controller= new backendController();
+    BackendController controller= new BackendController();
 
     //get the admin object from the frontend that is to be deleted
     @PostMapping("/deleteAdmin")

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
-public class userFunction_API {
+public class UserFunction_API {
     @PostMapping("/saveSchedule")
     @ResponseBody
     public void saveSchedule(@RequestBody Trip_Schedule schedule) throws SQLException {

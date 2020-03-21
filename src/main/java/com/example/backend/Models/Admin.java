@@ -13,6 +13,7 @@ public class Admin implements Comparable<Admin> {
     public Admin() {
     }
 
+    //while registering
     public Admin(String username, String password, String fName, String lName, String contactNo) {
         this.username = username;
         this.password = password;
@@ -21,11 +22,12 @@ public class Admin implements Comparable<Admin> {
         this.contactNo = contactNo;
     }
 
-    public Admin(String username, String password, String fName, String lName) {
+    //DB retrieval
+    public Admin(String username, String fName, String lName, String contactNo) {
         this.username = username;
-        this.password = password;
         this.fName = fName;
         this.lName = lName;
+        this.contactNo = contactNo;
     }
 
     public String getUsername() {

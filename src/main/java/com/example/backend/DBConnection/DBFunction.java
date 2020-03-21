@@ -5,7 +5,7 @@ import com.example.backend.Models.User;
 
 import java.sql.*;
 
-public class dbFunction {
+public class DBFunction {
 
     private Connection connection;
     private Statement statement;
@@ -16,11 +16,11 @@ public class dbFunction {
     String query;
 
 
-    public dbFunction(){
+    public DBFunction(){
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            String connectionString = "jdbc:mysql://localhost/xplore_lanka";
+            String connectionString = "jdbc:mysql://localhost/xplore_lanka?serverTimezone=UTC";
             connection = DriverManager.getConnection(connectionString,username , password);
             System.out.println("Connected to Database...");
             statement = connection.createStatement();

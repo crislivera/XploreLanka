@@ -1,5 +1,7 @@
 package com.example.backend.Models;
 
+import com.example.backend.mobVerification.VerifyUser;
+
 import java.util.Objects;
 
 public class User implements Comparable<User>{
@@ -14,9 +16,11 @@ public class User implements Comparable<User>{
     int userID;
     boolean verify;
 
+
     public User() {
     }
 
+    //during retrieval from DB
     public User(String fName, String lName, String address, String contact, String email, String username, String password, int userID) {
         this.fName = fName;
         this.lName = lName;
@@ -26,9 +30,9 @@ public class User implements Comparable<User>{
         this.username = username;
         this.password = password;
         this.userID = userID;
-        this.verify=false;
     }
 
+    //while registering
     public User(String fName, String lName, String address, String contact, String email, String username, String password) {
         this.fName = fName;
         this.lName = lName;
@@ -37,7 +41,7 @@ public class User implements Comparable<User>{
         this.email = email;
         this.username = username;
         this.password = password;
-        this.verify=false;
+        setVerify(false);
     }
 
     public String getfName() {
@@ -148,6 +152,7 @@ public class User implements Comparable<User>{
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", userID=" + userID +
+                ", verify=" + verify +
                 '}';
     }
 }

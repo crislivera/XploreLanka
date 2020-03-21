@@ -2,10 +2,11 @@ package com.example.backend.DBConnection;
 
 import com.example.backend.Models.Admin;
 import com.example.backend.Models.User;
+import com.example.backend.mobVerification.VerifyUser;
 
 import java.sql.*;
 
-public class dbConnection {
+public class DBConnection {
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
@@ -15,11 +16,11 @@ public class dbConnection {
     String query;
 
 
-    public dbConnection(){
+    public DBConnection(){
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            String connectionString = "jdbc:mysql://localhost/xplore_lanka";
+            String connectionString = "jdbc:mysql://localhost/xplore_lanka?serverTimezone=UTC";
             connection = DriverManager.getConnection(connectionString,username , password);
             System.out.println("Connected to Database...");
             statement = connection.createStatement();
@@ -131,9 +132,11 @@ public class dbConnection {
 
     public boolean registerUser(User obj){
         PreparedStatement statement = null;
+        System.out.println(obj);
+        VerifyUser verifyUser = new VerifyUser(obj.getContact());
 
         try{
-            statement = connection.prepareStatement("insert into user values (?,?,?,?,?,?,?,?,?)");
+            statement = connection.prepareStatement("insert into user values (?,?,?,?,?,?,?,?,?,?)");
             statement.setString(1,obj.getfName());
             statement.setString(2,obj.getlName());
             statement.setString(3,obj.getAddress());
@@ -143,6 +146,7 @@ public class dbConnection {
             statement.setString(7,obj.getPassword());
             statement.setInt(8,obj.getUserID());
             statement.setBoolean(9,obj.isVerify());
+            statement.setString(10,verifyUser.getOTP());
             statement.execute();
 
             System.out.println("Successfully Added!");

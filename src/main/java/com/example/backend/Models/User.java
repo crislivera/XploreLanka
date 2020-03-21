@@ -1,6 +1,6 @@
 package com.example.backend.Models;
 
-import com.example.backend.mobVerification.VerifyUser;
+
 
 import java.util.Objects;
 
@@ -13,9 +13,10 @@ public class User implements Comparable<User>{
     String email;
     String username;
     String password;
+    String otp="jhhh";
     int userID;
     boolean verify;
-    String OTP;
+
 
 
     public User() {
@@ -34,7 +35,7 @@ public class User implements Comparable<User>{
     }
 
     //while verifying OTP
-    public User(String fName, String lName, String address, String contact, String email, String username, String password, String OTP) {
+    public User(String fName, String lName, String address, String contact, String email, String username, String password, String otp) {
         this.fName = fName;
         this.lName = lName;
         this.address = address;
@@ -42,7 +43,7 @@ public class User implements Comparable<User>{
         this.email = email;
         this.username = username;
         this.password = password;
-        this.OTP = OTP;
+        this.otp = otp;
     }
 
     //while registering
@@ -166,14 +167,15 @@ public class User implements Comparable<User>{
                 ", password='" + password + '\'' +
                 ", userID=" + userID +
                 ", verify=" + verify +
+                ", OTP='" + otp + '\'' +
                 '}';
     }
 
     public String getOTP() {
-        return OTP;
+        return otp;
     }
 
     public void setOTP(String OTP) {
-        this.OTP = OTP;
+        this.otp = OTP;
     }
 }

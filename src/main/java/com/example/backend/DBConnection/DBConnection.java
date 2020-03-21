@@ -196,9 +196,11 @@ public class DBConnection {
                     statement.setString(2,obj.getContact());
                     statement.setString(3,obj.getUsername());
                     statement.execute();
+                    System.out.println("User Verified!");
+                    return true;
                 }
-            System.out.println("User Verified!");
-            return true;
+            System.out.println("Verification Code is incorrect");
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

@@ -13,7 +13,7 @@ public class User implements Comparable<User>{
     String email;
     String username;
     String password;
-    String otp="jhhh";
+    String otp;
     int userID;
     boolean verify;
 

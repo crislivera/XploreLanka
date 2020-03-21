@@ -191,9 +191,10 @@ public class DBConnection {
             while (resultSet.next())
                 if((resultSet.getString("username").equals(obj.getUsername()))&&(resultSet.getString("OTP").equals(obj.getOTP()))){
                     PreparedStatement statement = null;
-                    statement = connection.prepareStatement("Update user Set verified=? Where username = ? ");
+                    statement = connection.prepareStatement("Update user Set verified=?,contact=? Where username = ? ");
                     statement.setBoolean(1,true);
-                    statement.setString(2,obj.getUsername());
+                    statement.setString(2,obj.getContact());
+                    statement.setString(3,obj.getUsername());
                     statement.execute();
                 }
             System.out.println("User Verified!");

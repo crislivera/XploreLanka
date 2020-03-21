@@ -55,4 +55,14 @@ public class BackendController {
     public User updateUser(User user) throws SQLException{
         return fun.updateUser(user);
     }
+
+    //verify user using OTP
+    public boolean verifyUser(User user){
+        return con.verifyUser(user);
+    }
+
+    //resend OTP code as SMS or change number and send
+    public void resendOTP(User user){
+        con.resendOTP(user);
+    }
 }

@@ -1,9 +1,11 @@
 package com.example.backend.DBConnection;
 
 import com.example.backend.Models.Admin;
+import com.example.backend.Models.MailModel;
 import com.example.backend.Models.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBFunction {
 
@@ -119,5 +121,25 @@ public class DBFunction {
         }
 
         return user;
+    }
+
+    //get the all mails from database
+    public ArrayList<String> getAllMails() throws SQLException {
+
+        query = "Select email from user";
+
+        resultSet = statement.executeQuery(query);
+        ArrayList<String> selectedMails = new ArrayList<>();
+
+        while(resultSet.next()) {
+            try {
+                selectedMails.add(resultSet.getString("email"));
+            }
+
+            catch (Exception ex){
+                System.out.println("Error in getting mails : " + ex.getMessage());
+            }
+        }
+        return selectedMails;
     }
 }

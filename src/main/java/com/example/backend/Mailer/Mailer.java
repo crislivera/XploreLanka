@@ -1,9 +1,6 @@
 package com.example.backend.Mailer;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
@@ -12,31 +9,35 @@ public class Mailer {
 
     public static void main(String[] args) {
 
-        String recipient = "ge.rusiru@gmail.com";
-        String sender = "hasani88d@gmail.com";
-        String host ="127.0.0.1:80";
+        final String username = "ge.rusiru@gmail.com";
+        final String password = "Informates";
 
-        Properties properties = System.getProperties();
-        properties.setProperty("mail.smtp.host", host);
-        Session session = Session.getDefaultInstance(properties);
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.post", "465");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.socketFactory.port", "465");
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
 
         try{
-            MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(sender));
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            msg.setSubject("XploreLanka by Informates");
-            msg.setText("This is a test one");
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("rusiru.2018194@iit.ac.lk"));
+            message.setSubject("Testing Mail");
+            message.setText("Hiii.. Rusiru. After this is working I'm going to sleep. hee hee..");
 
-            Transport.send(msg);
-            System.out.println("Mail successfully sent");
-
+            Transport.send(message);
+            System.out.println("Successfully send!");
         }
 
         catch(MessagingException ex){
-
-           ex.printStackTrace();
-
+            ex.printStackTrace();
         }
-
     }
 }

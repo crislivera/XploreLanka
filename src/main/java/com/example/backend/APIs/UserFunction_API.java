@@ -52,4 +52,19 @@ public class UserFunction_API {
     public void resendOTP(@RequestBody User  user) throws SQLException {
         backendController.resendOTP(user);
     }
+
+    @PostMapping("/verifyUser")
+    @ResponseBody
+    public boolean verifyUserEmail(@RequestBody User user) throws SQLException {
+        System.out.println(user);
+        return backendController.verifyUser(user);
+    }
+
+    @PostMapping("/resendotp")
+    @ResponseBody
+    public void resendOTPEmail(@RequestBody User  user) throws SQLException {
+        backendController.resendOTP(user);
+    }
 }
+
+

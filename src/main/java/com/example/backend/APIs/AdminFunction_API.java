@@ -13,7 +13,6 @@ import java.sql.SQLException;
 @CrossOrigin("*")
 @SpringBootApplication
 @RestController
-
 public class AdminFunction_API {
 
     BackendController controller = new BackendController();
@@ -50,7 +49,8 @@ public class AdminFunction_API {
     //send a mail to user
     @PostMapping("/mailer")
     @ResponseBody
-    public boolean mailer(@RequestBody MailModel mailModel){
-        return mailController.mailer(mailModel);
+    public boolean mailer(@RequestBody MailModel mail){
+        System.out.println(mail);
+        return mailController.mailer(mail);
     }
 }

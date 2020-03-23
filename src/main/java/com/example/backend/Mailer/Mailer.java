@@ -7,8 +7,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Random;
 
 public class Mailer {
+
+    private final String characterList = "1234567890";
+    private Random random = new Random();
+    private  String OTP = "";
 
     public boolean sendMail(MailModel mailModel) {
 
@@ -52,4 +57,6 @@ public class Mailer {
             return false;
         }
     }
+
+
 }

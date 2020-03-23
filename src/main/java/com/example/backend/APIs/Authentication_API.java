@@ -46,7 +46,4 @@ public class Authentication_API {
     public boolean registerUser(@RequestBody User user) throws SQLException {
         return controller.registerUser(user);
     }
-
-
-
 }

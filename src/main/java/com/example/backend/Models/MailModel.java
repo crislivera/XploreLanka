@@ -15,25 +15,13 @@ public class MailModel {
 
     DBFunction dbFunction = new DBFunction();
 
-    public MailModel(String subject, String body, boolean sendAll, ArrayList<String> mailList) {
-        this.subject = subject;
-        this.body = body;
-        this.sendAll = sendAll;
-        this.mailList = mailList;
-    }
-
-    public MailModel(String subject, String body, ArrayList<String> mailList) {
-        this.subject = subject;
-        this.body = body;
-        this.mailList = mailList;
-    }
-
     public MailModel(String subject, String body, boolean sendAll) throws SQLException {
         this.subject = subject;
         this.body = body;
         this.sendAll = sendAll;
 
         mailList = dbFunction.getAllMails();
+        System.out.println(mailList);
     }
 
     public String getSubject() {
@@ -90,7 +78,6 @@ public class MailModel {
                 "subject='" + subject + '\'' +
                 ", body='" + body + '\'' +
                 ", sendAll=" + sendAll +
-                ", mailList=" + mailList +
                 '}';
     }
 }

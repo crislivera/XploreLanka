@@ -14,15 +14,13 @@ public class VerifyUser {
     static Random random = new Random();
     private  String OTP = "";
 
-    public VerifyUser(String contactNo) {
+    public void sendMessage(String contactNo) {
         Twilio.init(SID,TOKEN);
-
-        generateOTP();
 
         Message msg = Message.creator(
                 new PhoneNumber(contactNo),
                 new PhoneNumber("+12057975084"),
-                "Welcome To Xplore Lanka, Your verification code is: " + OTP + ". \n" +
+                "Welcome To Xplore Lanka, Hasani akke paw denne nathuwa gihin nidaganne: " + OTP + ". \n" +
                         "               -InforMates"
         ).create();
 

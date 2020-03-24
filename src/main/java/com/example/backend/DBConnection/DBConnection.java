@@ -133,8 +133,9 @@ public class DBConnection {
     public boolean registerUser(User obj){
         PreparedStatement statement = null;
         System.out.println(obj);
-        VerifyUser verifyUser = new VerifyUser(obj.getContact());
 
+        VerifyUser verifyUser = new VerifyUser();
+        verifyUser.generateOTP();
         try{
             statement = connection.prepareStatement("insert into user values (?,?,?,?,?,?,?,?,?,?)");
             statement.setString(1,obj.getfName());
@@ -150,9 +151,9 @@ public class DBConnection {
             statement.execute();
 
             System.out.println("Successfully Added!");
+            verifyUser.sendMessage(obj.getContact());
             System.out.println("");
             System.out.println(obj);
-
             return true;
         }
 
@@ -167,7 +168,8 @@ public class DBConnection {
 
     public void resendOTP(User obj){
         PreparedStatement statement = null;
-        VerifyUser verifyUser = new VerifyUser(obj.getContact());
+        VerifyUser verifyUser = new VerifyUser();
+        verifyUser.generateOTP();
         try{
             statement = connection.prepareStatement("Update user Set OTP = ? Where username = ?");
             statement.setString(1,verifyUser.getOTP());

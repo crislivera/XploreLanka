@@ -17,8 +17,8 @@ public class Mailer {
 
     public boolean sendMail(MailModel mailModel) {
 
-        final String username = "ge.rusiru@gmail.com";
-        final String password = "Informates";
+        final String username = "xplorelanka@gmail.com";
+        final String password = "informates@2020";
 
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");

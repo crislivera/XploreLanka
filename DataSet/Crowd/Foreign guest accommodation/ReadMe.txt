@@ -1,1 +1,0 @@
-Establishments by Region and Month - 2011 -2018

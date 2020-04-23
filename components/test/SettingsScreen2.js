@@ -4,9 +4,9 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
-import { MonoText } from '../components/StyledText';
+// import { MonoText } from './StyledText';
 
-export default function SettingsScreen({navigation}) {
+export default function SettingsScreen2({navigation}) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
     <OptionButton
@@ -37,7 +37,7 @@ export default function SettingsScreen({navigation}) {
       <View style={styles.tabBarInfoContainer}>
         <Text style={styles.tabBarInfoText}>From</Text>
         <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
+          {/* <MonoText style={styles.codeHighlightText}> */}
           {/* <LinearTextGradient
               style={{ fontWeight: "bold", fontSize: 72 }}
               locations={[0, 1]}
@@ -46,8 +46,8 @@ export default function SettingsScreen({navigation}) {
               end={{ x: 1, y: 0 }}>
                 Informates
           </LinearTextGradient> */}
-          Informates
-             </MonoText>
+          <Text>Informates</Text>
+             {/* </MonoText> */}
         </View>
       </View>
 

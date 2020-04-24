@@ -245,7 +245,7 @@ const LoginNavigator = ({navigation,route})=>{
   <LoginStack.Navigator>
     <LoginStack.Screen options={{header: () => null}} name="Login" component={Login}/>
     <LoginStack.Screen name="Signup" component={Signup}/>
-    <LoginStack.Screen name="ForgotPassword" component={ForgotPassword} options={{ title: 'Forgot Password'}}/>
+    <LoginStack.Screen name="ForgotPassword" component={ForgotPassword} options={{ title: null}}/>
     <LoginStack.Screen name="Plan" component={Plan}/>
     <LoginStack.Screen options={{header: () => null}} name="OtpScreen" component={OtpScreen}/>
   </LoginStack.Navigator>

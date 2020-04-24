@@ -94,22 +94,24 @@ export default class Login extends React.Component {
               
         </View>
 
-        <TouchableOpacity 
-            style={styles.forgotPassword}
-            onPress={() => this.props.navigation.navigate('ForgotPassword')}>
-            <Text style={styles.buttonText}>Forgot your password?</Text>
-        </TouchableOpacity>
-
+      
         <TouchableOpacity
             style={[styles.buttonContainer, styles.loginButton]}
             onPress={this.login}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity 
+            style={styles.forgotPassword}
+            onPress={() => this.props.navigation.navigate('ForgotPassword')}>
+            <Text style={styles.buttonText}>Forgot password?</Text>
+        </TouchableOpacity>
+
         <Text style={styles.buttonText}
           onPress={() => this.props.navigation.navigate('Signup')}>
           Don't have an account? Signup
         </Text>
+
        </View>
       </SafeAreaView>
     );
@@ -137,13 +139,12 @@ const styles = StyleSheet.create({
   formContainer:{
     alignItems: 'center',
     flexGrow:1,
-    justifyContent:'center',
+    backgroundColor: '#FFFFFF',
   },
   inputContainer: {
     borderColor: '#F5FCFF',
     backgroundColor: '#FFFFFF',
-    borderRadius:30,
-    borderBottomWidth: 1,
+    borderRadius:20,
     width:300,
     height:45,
     marginBottom:20,
@@ -169,17 +170,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop:10,
     marginBottom:20,
     width:300,
-    borderRadius:30,
+    borderRadius:20,
+    borderColor:"#ac00e6",
     backgroundColor:'transparent'
   },
   forgotPassword: {
     height:15,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    marginBottom:10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:10,
+    marginBottom:25,
     width:300,
     backgroundColor:'transparent'
   },
@@ -200,6 +204,7 @@ const styles = StyleSheet.create({
   },
   buttonText:{
     color:"#ac00e6",
-    fontWeight:'bold'
+    fontSize:17,
+    fontWeight:'bold',
   }
 }); 

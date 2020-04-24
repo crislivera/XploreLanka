@@ -113,7 +113,7 @@ export default class Signup extends React.Component {
               </View> 
                
           <TextInput
-            style={styles.inputStyle}
+            style={styles.input}
             placeholder="First Name"
             keyboardType="default"
             value={this.state.fName}
@@ -121,21 +121,21 @@ export default class Signup extends React.Component {
             onChangeText={(val) => this.updateValue(val,'fName')} 
           />    
           <TextInput
-            style={styles.inputStyle}
+            style={styles.input}
             placeholder="Last Name"
             keyboardType="default"
             value={this.state.lName}
             onChangeText={(value) => this.updateValue(value, 'lName')}
           />  
           <TextInput
-            style={styles.inputStyle}
+            style={styles.input}
             placeholder="Address"
             keyboardType="default"
             value={this.state.address}
             onChangeText={(value) => this.updateValue(value, 'address')}
           />  
           <TextInput
-            style={styles.inputStyle}
+            style={styles.input}
             placeholder="Contact"
             keyboardType="default"
             underlineColorAndroid='transparent'
@@ -143,20 +143,20 @@ export default class Signup extends React.Component {
             onChangeText={(value) => this.updateValue(value, 'contact')}
           />    
           <TextInput
-            style={styles.inputStyle}
+            style={styles.input}
             placeholder="Email"
             keyboardType="email-address"
             value={this.state.email}
             onChangeText={(value) => this.updateValue(value, 'email')}
           />
           <TextInput
-            style={styles.inputStyle}
+            style={styles.input}
             placeholder="UserName"
             value={this.state.username}
             onChangeText={(value) => this.updateValue(value, 'username')}
           />
           <TextInput
-            style={styles.inputStyle}
+            style={styles.input}
             placeholder="Password"
             value={this.state.password}
             onChangeText={(value) => this.updateValue(value, 'password')}
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
      
     },
   
-    inputStyle: {
+    input: {
       width: '100%',
       marginLeft:5,
       marginRight:5,

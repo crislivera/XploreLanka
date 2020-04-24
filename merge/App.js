@@ -12,7 +12,7 @@ import Search from './components/src/components/Search';
 import Map from './components/src/components/Map';
 import Currentlocation from './components/src/components/Currentlocation';
 import { Button } from 'galio-framework';
-import Dateing from './components/src/components/Dateing';
+// import Dateing from './components/src/components/Dateing';
 import Details from './screens/Details';
 import Plan from './screens/Plan';
 import SettingsScreen2 from './components/test/SettingsScreen2';
@@ -49,7 +49,7 @@ const HomeScreen=({navigation}) =>{
         <Search/>
         {/* <Date/> */}
         <View style={styles.but2}>
-          <Dateing/>
+          {/* <Dateing/> */}
         </View>
         <Button
             round size="small"
@@ -61,7 +61,7 @@ const HomeScreen=({navigation}) =>{
       </View>
       <ScrollView>
           <View style={styles.nav2}>
-              <Ionicons style={{marginLeft:185}} name="ios-arrow-up" size='35' color="blue" ></Ionicons>
+              <Ionicons style={{marginLeft:185}} name="ios-arrow-up" color="blue" ></Ionicons>
           </View>
         </ScrollView>
     </View>

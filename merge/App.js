@@ -15,9 +15,8 @@ import { Button } from 'galio-framework';
 // import Dateing from './components/src/components/Dateing';
 import Details from './screens/Details';
 import Plan from './screens/Plan';
-import SettingsScreen2 from './components/test/SettingsScreen2';
+import SettingsScreen from './components/test/SettingsScreen';
 import Login from './components/test/Login';
-// import SettingsNavigator from './components/test/SettingsNavigator';
 import AccountScreen from './components/test/AccountScreen';
 import Notifications from './components/test/Notifications';
 import About from './components/test/About';
@@ -111,7 +110,7 @@ const HomeScreen=({navigation}) =>{
 //     <SettingsNavigator/>
     
 //   );
-// };
+// };screenOptions={{headerShown: false}}
 
 const HomeTabNavigator = ({navigation, route}) => {
   
@@ -129,7 +128,7 @@ const HomeTabNavigator = ({navigation, route}) => {
       }
       else if(route.name == 'Login')
       {
-        iconName = 'ios-man'
+        iconName = 'ios-person'
       }
       else if(route.name == 'Settings')
       {
@@ -141,11 +140,14 @@ const HomeTabNavigator = ({navigation, route}) => {
     <Tab.Screen name="Home" component={HomeStackNavigator}/>
     <Tab.Screen name="Plan" component={PlanScreen}/>
     <Tab.Screen name="Login" component={LoginNavigator}/>
-    <Tab.Screen  name="Settings" component={SettingsNavigator}/>
+    <Tab.Screen name="Settings" component={SettingsNavigator}/>
   </Tab.Navigator>
   )
 }
 
+// //navigationOptions: {
+// header: null,
+// },
 const PlanScreen = props => (
     <Plan/>
 );
@@ -224,6 +226,10 @@ function shouldHeaderBeShown(route){
   switch(routeName) {
     case "Home":
       return false;
+    case "Login":
+      return false;
+    case "Settings":
+      return false;
   }
 }
 
@@ -236,9 +242,9 @@ const LoginNavigator = ({navigation,route})=>{
     });
   }
   return(
-  <LoginStack.Navigator >
-    <LoginStack.Screen options={{headerShown: () => false}} name="Login" component={Login}/>
-    <LoginStack.Screen options={{header: () => null}} name="Signup" component={Signup}/>
+  <LoginStack.Navigator>
+    <LoginStack.Screen options={{header: () => null}} name="Login" component={Login}/>
+    <LoginStack.Screen name="Signup" component={Signup}/>
     <LoginStack.Screen name="ForgotPassword" component={ForgotPassword} options={{ title: 'Forgot Password'}}/>
     <LoginStack.Screen name="Plan" component={Plan}/>
     <LoginStack.Screen options={{header: () => null}} name="OtpScreen" component={OtpScreen}/>
@@ -256,7 +262,7 @@ const SettingsNavigator =({navigation,route})=>{
 
   return(
   <SettingsStack.Navigator>
-    <SettingsStack.Screen name="SettingsScreen2" component={SettingsScreen2} options={{ title: 'Settings'}}/>
+    <SettingsStack.Screen name="SettingsScreen" component={SettingsScreen} options={{ title: 'Settings'}}/>
     <SettingsStack.Screen name="AccountScreen" component={AccountScreen} options={{ title: 'Welcome'}}/> 
     <SettingsStack.Screen name="Notifications" component={Notifications} />
     <SettingsStack.Screen name="About" component={About} options={{ title: 'About'}}/>
@@ -270,6 +276,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator 
         screenOptions={{
+          headerShown: false,
           gestureEnabled: true,
           //headerShown:false,
           gestureDirection: "horizontal",
@@ -278,11 +285,12 @@ export default function App() {
           // transitionSpec: {
           //   open: config,
           //   close: closeConfig
-          // }
-          headerShown: false,
+          //}
+         
         }}
         headerMode="float"
         animate="fade"
+       
       >
         <Stack.Screen
           options={({route})=>({

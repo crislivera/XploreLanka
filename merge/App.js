@@ -12,7 +12,7 @@ import Search from './components/src/components/Search';
 import Map from './components/src/components/Map';
 import Currentlocation from './components/src/components/Currentlocation';
 import { Button } from 'galio-framework';
-// import Dateing from './components/src/components/Dateing';
+import Dateing from './components/src/components/Dateing';
 import Details from './screens/Details';
 import Plan from './screens/Plan';
 import SettingsScreen from './components/test/SettingsScreen';
@@ -48,7 +48,7 @@ const HomeScreen=({navigation}) =>{
         <Search/>
         {/* <Date/> */}
         <View style={styles.but2}>
-          {/* <Dateing/> */}
+          <Dateing/>
         </View>
         <Button
             round size="small"
@@ -60,7 +60,7 @@ const HomeScreen=({navigation}) =>{
       </View>
       <ScrollView>
           <View style={styles.nav2}>
-              <Ionicons style={{marginLeft:185}} name="ios-arrow-up" color="blue" ></Ionicons>
+              <Ionicons style={{marginLeft:185}} name="ios-arrow-up" size={30} color="blue" ></Ionicons>
           </View>
         </ScrollView>
     </View>
@@ -69,7 +69,7 @@ const HomeScreen=({navigation}) =>{
  
  const styles = StyleSheet.create({
   but: {
-    marginTop: 160,
+    marginTop: 14,
     alignSelf: 'center',
     width: 300,
     marginLeft: 90
@@ -84,14 +84,14 @@ const HomeScreen=({navigation}) =>{
      backgroundColor: '#fff',
      marginTop:15,
      flexWrap:'wrap',
-     height:233,
+     height:205,
      width:400,
      borderRadius:30,
      marginLeft: 7,
    },
    nav2: {
      backgroundColor: '#fff',
-     marginTop:340,
+     marginTop:370,
      flexWrap:'wrap',
      height:600,
      width:400,

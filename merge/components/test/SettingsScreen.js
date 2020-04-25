@@ -3,9 +3,8 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
-// import { MonoText } from './StyledText';
 
-export default function SettingsScreen2({navigation}) {
+export default function SettingsScreen({navigation}) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
     <OptionButton
@@ -35,21 +34,11 @@ export default function SettingsScreen2({navigation}) {
 
       <View style={styles.tabBarInfoContainer}>
         <Text style={styles.tabBarInfoText}>From</Text>
-        <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          {/* <MonoText style={styles.codeHighlightText}> */}
-          {/* <LinearTextGradient
-              style={{ fontWeight: "bold", fontSize: 72 }}
-              locations={[0, 1]}
-              colors={["red", "blue"]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}>
-                Informates
-          </LinearTextGradient> */}
-          <Text>Informates</Text>
-             {/* </MonoText> */}
+        <View style={styles.infoTextContainer}>
+          <Text style={styles.infoText}>Informates</Text>
         </View>
       </View>
-
+   
     </ScrollView>
   );
 }
@@ -78,10 +67,10 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   optionIconContainer: {
-    marginRight: 12,
+    marginRight: 20,
   },
   option: {
-    backgroundColor: '#fdfdfd',
+    backgroundColor: '#fff',
     paddingHorizontal: 15,
     paddingVertical: 15,
     borderWidth: StyleSheet.hairlineWidth,
@@ -96,36 +85,33 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: 1,
   },
-  codeHighlightText: {
-    color:"blue",
+  infoText: {
+    color:"#ac00e6",
     fontSize:20,
   },
-  codeHighlightContainer: {
+  infoTextContainer: {
     borderRadius:7,
     paddingHorizontal: 4,
   },
   tabBarInfoContainer: {
+    backgroundColor:'#fff',
+    flex:1,
     position: 'relative',
-    bottom:0 ,
-    left: 0,
-    right: 0,
     ...Platform.select({
       ios: {
         shadowColor: 'black',
         shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3,
+        shadowRadius: 1,
+        marginTop:260
       },
       android: {
-        elevation: 20,
+        elevation: 5,
+        marginTop:243,
       },
     }),
-    alignItems: 'flex-start',
-    backgroundColor: '#fdfdfd',
     paddingVertical: 20,
     paddingLeft:25,
-    marginTop:235,
-    
   },
   tabBarInfoText: {
     fontSize: 15,

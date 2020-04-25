@@ -52,53 +52,64 @@ export default class Signup extends React.Component {
           password:val
         })
       }
+      else if(prop=='confirmPassword'){
+        this.setState({
+          confirmPassword:val
+        })
+      }
     }
 
+    signupUser = async() => {
 
-    signupUser = () => {
+      let signupDetails={}
+      signupDetails.fName=this.state.fName,
+      signupDetails.lName=this.state.lName,
+      signupDetails.address=this.state.address,
+      signupDetails.contact=this.state.contact,
+      signupDetails.email=this.state.email,
+      signupDetails.username=this.state.username,
+      signupDetails.password=this.state.password
+      
 
-      let collection={}
-      collection.fName=this.state.fName,
-      collection.lName=this.state.lName,
-      collection.address=this.state.address,
-      collection.contact=this.state.contact,
-      collection.email=this.state.email,
-      collection.username=this.state.username,
-      collection.password=this.state.password
-    
-      if(this.state.fName == '' || this.state.lName == '' || this.state.contact == '' || this.state.address == '' || this.state.email == '' || this.state.username == '' || this.state.password == '') {
+      try {
+        if(this.state.fName == '' || this.state.lName == '' || this.state.contact == '' || this.state.address == '' || this.state.email == '' || this.state.username == '' || this.state.password == '' || this.state.confirmPassword == '') {
           Alert.alert(Alert,'Please fill all the fields!')
-      } else {
-          fetch('http://localhost:3000/users',{
-          method:'POST',
-          headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({collection})
-          })
-          .then((response)=> response.json())
-          .then((res)=>{
-            if(res.success === true){
-               console.log('User registered successfully!')
-               this.setState({
-                fName: '',
-                lName:'',
-                address: '',
-                contact:'',
-                email: '',
-                username:'', 
-                password: '',
-                setVerify: false
-               })
-               this.props.navigation.navigate('OtpScreen')
-            }else{
-                Alert.alert('Registration is unsuccessfull. Please try again');
+        } else {
+          if (this.state.password !== this.state.confirmPassword) {
+            Alert.alert(Alert,'Please enter the same password!')
+          } else {
+            fetch('http://localhost:3000/users',{
+              method:'POST',
+              headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({signupDetails})
+              })
+            .then((response)=> response.json())
+            .then((res)=>{
+              if(res.success === true){
+                console.log('User registered successfully!')
+                this.setState({
+                  fName: '',
+                  lName:'',
+                  address: '',
+                  contact:'',
+                  email: '',
+                  username:'', 
+                  password: '',
+                })
+              this.props.navigation.navigate('OtpScreen')
+              }else{
+                  Alert.alert('Registration is unsuccessfull. Please try again');
               }
             })
-          .catch(error => this.setState({ errorMessage: error.message }))      
-        }
-      }
+          } 
+        }  
+      }catch (error) {
+          error => this.setState({ errorMessage: error.message })
+      }      
+    }
   
     render() {   
       return (
@@ -117,7 +128,6 @@ export default class Signup extends React.Component {
             placeholder="First Name"
             keyboardType="default"
             value={this.state.fName}
-            // onChangeText={(fName) => this.setState({fName})}/>
             onChangeText={(val) => this.updateValue(val,'fName')} 
           />    
           <TextInput
@@ -137,7 +147,7 @@ export default class Signup extends React.Component {
           <TextInput
             style={styles.input}
             placeholder="Contact"
-            keyboardType="default"
+            keyboardType="phone-pad"
             underlineColorAndroid='transparent'
             value={this.state.contact}
             onChangeText={(value) => this.updateValue(value, 'contact')}
@@ -149,28 +159,32 @@ export default class Signup extends React.Component {
             value={this.state.email}
             onChangeText={(value) => this.updateValue(value, 'email')}
           />
+
           <TextInput
             style={styles.input}
             placeholder="UserName"
+            keyboardType="default"
             value={this.state.username}
             onChangeText={(value) => this.updateValue(value, 'username')}
           />
+
           <TextInput
             style={styles.input}
             placeholder="Password"
             value={this.state.password}
             onChangeText={(value) => this.updateValue(value, 'password')}
-            maxLength={10}
+            maxLength={50}
             secureTextEntry={true}
           /> 
-          {/* <TextInput
-            style={styles.inputStyle}
+
+          <TextInput
+            style={styles.input}
             placeholder="Confirm Password"
-            value={this.state.setVerify}
-            onChangeText={(value) => this.updateValue(value, 'setVerify')}
-            maxLength={10}
+            value={this.state.confirmPassword}
+            onChangeText={(value) => this.updateValue(value, 'confirmPassword')}
+            maxLength={50}
             secureTextEntry={true}
-          />    */}
+          />    
           
           <TouchableOpacity style={[styles.buttonContainer,styles.signupButton]} 
             onPress={() => this.signupUser()}>
@@ -258,7 +272,7 @@ const styles = StyleSheet.create({
       },
       shadowOpacity: 0.50,
       shadowRadius: 12.35,
-      elevation: 19,
+      elevation: 5,
     },
     signupText: {
       color: 'white',
@@ -266,11 +280,10 @@ const styles = StyleSheet.create({
     },
     loginText: {
       color: '#ac00e6',
-      flexDirection: 'row',
+      flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      fontWeight:'bold',
-      marginLeft:45,
-      marginRight:40
+      marginHorizontal:20,
+      fontSize:17
     },
   });

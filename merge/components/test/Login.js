@@ -25,44 +25,45 @@ export default class Login extends React.Component {
     
   }
 
-  login = () =>{
+  login = async() =>{
 
-    let collection={}
-        collection.username=this.state.username,
-        collection.password=this.state.password
+    let loginDetails={}
+    loginDetails.username=this.state.username,
+    loginDetails.password=this.state.password
         
-       
-    if(this.state.email == '' || this.state.password == '') {
-      Alert.alert(Alert,'Please fill all the fields!')
-    } 
-    else {
-      fetch('http://localhost:3000/users',{
-        method:'POST',
-        headers:{
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-       body: JSON.stringify({collection})
-     })
-     .then((response)=> response.json())
-     .then((res)=>{
-       if(res.success === true){
-        console.log('User logged-in successfully!')
-         AsyncStorage.setItem('user',res.user);
-         this.setState({
-             email: '', 
-             password: ''
-         })
-         this.props.navigate.navigate('Plan');
-       }
-       else{
-         Alert.alert(Alert,'Invalid user');
-       }
-     })
-     .catch(error => this.setState({ errorMessage: error.message }))
-    }
-  }
-  
+    try {
+      if(this.state.email == '' || this.state.password == '') {
+        Alert.alert(Alert,'Please fill all the fields!')
+      } 
+      else {
+        fetch('http://localhost:3000/users',{
+          method:'POST',
+          headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+         body: JSON.stringify({loginDetails})
+       })
+       .then((response)=> response.json())
+       .then((res)=>{
+         if(res.success === true){
+          console.log('User logged-in successfully!')
+           AsyncStorage.setItem('user',res.user);
+           this.setState({
+               email: '', 
+               password: ''
+           })
+           this.props.navigate.navigate('Plan');
+         }
+         else{
+           Alert.alert(Alert,'Invalid user details');
+         }
+       })
+      }
+    }catch (error) {
+        error => this.setState({ errorMessage: error.message })
+    }      
+  }  
 
   render() {
     return (
@@ -91,10 +92,8 @@ export default class Login extends React.Component {
               underlineColorAndroid='transparent'
               value={this.state.password}
               onChangeText={(value) => this.updateValue(value, 'password')}/>
-              
         </View>
 
-      
         <TouchableOpacity
             style={[styles.buttonContainer, styles.loginButton]}
             onPress={this.login}>
@@ -118,13 +117,12 @@ export default class Login extends React.Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
   },
   logo:{
     width:250,
@@ -132,7 +130,7 @@ const styles = StyleSheet.create({
   },
   logoContainer:{
     alignItems: 'center',
-    flexGrow:1,
+    flexGrow:2,
     justifyContent:'center',
   },
 
@@ -144,7 +142,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderColor: '#F5FCFF',
     backgroundColor: '#FFFFFF',
-    borderRadius:20,
     width:300,
     height:45,
     marginBottom:20,
@@ -157,7 +154,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 4,
   },
   inputs:{
     height:45,
@@ -173,7 +170,7 @@ const styles = StyleSheet.create({
     marginTop:10,
     marginBottom:20,
     width:300,
-    borderRadius:20,
+    borderRadius:30,
     borderColor:"#ac00e6",
     backgroundColor:'transparent'
   },
@@ -183,9 +180,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop:10,
-    marginBottom:25,
+    marginBottom:30,
     width:300,
-    backgroundColor:'transparent'
+   
   },
   loginButton: {
     backgroundColor: "#ac00e6",
@@ -196,7 +193,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.50,
     shadowRadius: 12.35,
-    elevation: 19,
+    elevation: 8,
   },
   loginText: {
     color: 'white',
@@ -205,6 +202,7 @@ const styles = StyleSheet.create({
   buttonText:{
     color:"#ac00e6",
     fontSize:17,
-    fontWeight:'bold',
+  
+  
   }
 }); 

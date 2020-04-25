@@ -145,9 +145,7 @@ const HomeTabNavigator = ({navigation, route}) => {
   )
 }
 
-// //navigationOptions: {
-// header: null,
-// },
+
 const PlanScreen = props => (
     <Plan/>
 );

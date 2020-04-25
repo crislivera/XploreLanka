@@ -27,7 +27,7 @@ export default class AccountScreen extends React.Component {
 
 const styles = StyleSheet.create({
   header:{
-    backgroundColor: "#DCDCDC",
+    backgroundColor: "#dcdcdc",
   },
   headerContent:{
     padding:30,

@@ -1,18 +1,58 @@
 import * as React from 'react';
-import { Text, SafeAreaView, View, StyleSheet,TextInput,TouchableOpacity} from 'react-native'
+import { Text, SafeAreaView, View, StyleSheet,TextInput,TouchableOpacity,Alert} from 'react-native'
 
 export default class ForgotPassword extends React.Component {
-  handlePasswordReset = async (values, actions) => {
-    const { email } = values
-  
-    try {
-      await this.props.firebase.passwordReset(email)
-      console.log('Password reset email sent successfully')
-      this.props.navigation.navigate('Login')
-    } catch (error) {
-      actions.setFieldError('general', error.message)
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
     }
   }
+
+  handleEmail = (val, prop) => {
+    if(prop=='email'){
+      this.setState({
+        email:val
+      })
+    }
+  }
+
+  sendEmail = async () => {
+
+    email =this.state.email;
+    
+    try {
+      if(this.state.email== '') {
+        Alert.alert(Alert,'Please enter your email!')
+      } 
+      else {
+        fetch('http://localhost:3000/users',{
+          method:'POST',
+          headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+         body: JSON.stringify({email})
+       })
+       .then((response)=> response.json())
+       .then((res)=>{
+         if(res.success === true){
+          console.log('Password reset email sent successfully')
+           this.setState({
+               email: '', 
+           })
+           this.props.navigate.navigate('Login');
+         }
+         else{
+           Alert.alert(Alert,'Invalid email ');
+         }
+       })
+      }
+    }catch (error) {
+        error => this.setState({ errorMessage: error.message })
+    }      
+  }  
     render() {
         return (
           <View style={styles.container}>
@@ -22,11 +62,10 @@ export default class ForgotPassword extends React.Component {
               <TextInput
                 style={styles.input}
                 name='email'
-               // value={values.email}
-              //  onChangeText={handleChange('email')}
+                value={this.state.email}
+                onChangeText={(value) => this.handleEmail(value, 'email')}
                 placeholder='Enter your email'
                 autoCapitalize='none'
-               // onBlur={handleBlur('email')}
                 keyboardType="email-address"
               />  
 
@@ -45,20 +84,18 @@ const styles = StyleSheet.create({
       flex: 1,
       display: "flex",
       flexDirection: "column",
-     // justifyContent:'center',
       backgroundColor: '#fff',
-     // alignItems:'center'
       
     },
     formContainer:{
       alignItems: 'center',
       flexGrow:1,
-     // backgroundColor: 'blue',
       margin:40
     },
     text: {
       fontSize: 22,
       margin:30,
+      color:'#9E00D3',
       justifyContent:'center',
       fontWeight:'bold'
     },
@@ -68,7 +105,7 @@ const styles = StyleSheet.create({
       marginRight:15,
       marginBottom: 15,
       paddingBottom: 15,
-      alignSelf: "center",
+      alignItems: "center",
       borderColor: "#ccc",
       borderBottomWidth: 1,
       fontSize:15
@@ -81,11 +118,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       margin:20,
-      width:200,
-      
+      marginTop:30,
+      width:300,    
       borderWidth: 1,
-      borderRadius:20,
-      backgroundColor:'transparent'
+      borderRadius:30,
+      backgroundColor:'transparent',
+      borderColor:"#9E00D3"
     },
     sendButton: {
       backgroundColor: "#fff",
@@ -103,11 +141,11 @@ const styles = StyleSheet.create({
       marginBottom:10,
       fontSize: 16,
       justifyContent:'center',
-      
     },
     btnText: { 
       alignItems:'center',
-     
+      color:'#9E00D3',
+      fontWeight:'bold'
     },
     
   })

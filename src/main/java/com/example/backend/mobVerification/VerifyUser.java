@@ -20,7 +20,7 @@ public class VerifyUser {
         Message msg = Message.creator(
                 new PhoneNumber(contactNo),
                 new PhoneNumber("+12057975084"),
-                "Welcome To Xplore Lanka, Hasani akke paw denne nathuwa gihin nidaganne: " + OTP + ". \n" +
+                "Welcome To Xplore Lanka: " + OTP + ". \n" +
                         "               -InforMates"
         ).create();
 

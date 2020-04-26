@@ -2,8 +2,11 @@ package com.example.backend.APIs;
 
 import com.example.backend.Models.Admin;
 import com.example.backend.Models.Credentials;
+import com.example.backend.Models.MailModel;
 import com.example.backend.Models.User;
 import com.example.backend.controller.BackendController;
+import com.example.backend.controller.MailController;
+import com.example.backend.mailVerification.VerifyByMail;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,7 @@ import java.sql.SQLException;
 public class Authentication_API {
 
     BackendController controller = new BackendController();
+    MailController mail = new MailController();
 
     @GetMapping("/test")
     @ResponseBody
@@ -46,4 +50,11 @@ public class Authentication_API {
     public boolean registerUser(@RequestBody User user) throws SQLException {
         return controller.registerUser(user);
     }
+
+    @PostMapping("/verifyByMail")
+    @ResponseBody
+    public boolean verifyByMail(@RequestBody User user){
+        return mail.verifyByMail(user);
+    }
+
 }

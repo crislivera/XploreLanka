@@ -1,0 +1,54 @@
+import React from 'react';
+
+const getDay = hours => {
+
+    // determine whether it's day or night
+    // based on hours group
+
+    if (hours >= 7 && hours <= 17 ){
+       return "It's day";
+    } else {
+       return "It's night!";
+    }
+
+}
+
+const DayNightDisplay = props => {
+
+    // convert hours from string to integer
+
+    const hours = parseInt(props.hours, 10);
+
+    // store the returned value in rightNow
+
+    const rightNow = getDay(hours);
+
+    let imageURL = "";
+
+    // get proper image
+
+    if (rightNow === "It's day")
+
+           imageURL = "day.png";
+
+    else
+
+           imageURL = "night.png";
+
+    // console out rightNow value
+
+    console.log(rightNow);
+
+    return <div>
+       <div>
+           <img alt="Day Night" src={imageURL}/>
+       </div>
+
+       <div>
+           {rightNow}
+       </div>
+
+    </div>;
+};
+
+export default DayNightDisplay;

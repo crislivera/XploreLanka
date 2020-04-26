@@ -24,6 +24,7 @@ import Logout from './components/test/Logout';
 import Signup from './components/test/Signup';
 import ForgotPassword from './components/test/ForgotPassword';
 import OtpScreen from './components/test/OtpScreen';
+import {addMore} from './components/src/components/Search';;
 
 const Stack = createStackNavigator();
 const Tab =createBottomTabNavigator();

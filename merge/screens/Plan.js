@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { AppRegistry, TouchableOpacity, Image, Animated, ScrollView, StyleSheet, View, Text } from 'react-native';
-
-
+import {id} from '../components/src/components/Search';
+// export {addMore};
 export default class Plan extends Component {
 
   constructor() {
     super();
 
     this.state = { valueArray: [], disabled: false }
-    this.index = 0;
+    this.index = id;
     this.animatedValue = new Animated.Value(0);
   }
 
@@ -24,7 +24,7 @@ export default class Plan extends Component {
           useNativeDriver: true
         }
       ).start(() => {
-        this.index = this.index + 1;
+        this.index = this.index;
         this.setState({ disabled: false });
       });
     });
@@ -42,14 +42,14 @@ export default class Plan extends Component {
       if ((key) == this.index) {
         return (
           <Animated.View key={key} style={[styles.viewHolder, { opacity: this.animatedValue, transform: [{ translateY: animationValue }] }]}>
-            <Text style={styles.headerText}>Row {item.index}</Text>
+            <Text style={styles.headerText}>{item.index}</Text>
           </Animated.View>
         );
       }
       else {
         return (
           <View key={key} style={styles.viewHolder}>
-            <Text style={styles.headerText}>Row No :- {item.index}</Text>
+            <Text style={styles.headerText}>{item.index}</Text>
           </View>
         );
       }
@@ -80,7 +80,7 @@ const styles = StyleSheet.create(
     },
     viewHolder: {
       height: 55,
-      backgroundColor: '#ff4081',
+      backgroundColor: 'blue',
       justifyContent: 'center',
       alignItems: 'center',
       margin: 4

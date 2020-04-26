@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
     ActivityIndicator,
@@ -7,9 +7,11 @@ import {
     TextInput,
     TouchableOpacity,
     View,
+    Alert,
+    AsyncStorage,
 } from 'react-native';
 import {API_KEY} from './Key';
-
+const id='EiNIaXAgV28gU3RyZWV0LCBLd3VuIFRvbmcsIEhvbmcgS29uZyIuKiwKFAoSCSlZrI1NAQQ0ETnl_WwCMD5jEhQKEgmVTaCDSAEENBFMhWFJohArzg';
 class Search extends Component {
     state = {
         query: '',
@@ -29,7 +31,6 @@ class Search extends Component {
                 onChangeText={query => this.setState({ query }, () => this.onPlaceSearch())}
                 value={this.state.query}
                 onFocus={() => this.setState({ showList: true })}
-                //onPress={() => }
                 onBlur={() => this.setState({ showList: false })}
                 {...this.props.textInputProps}
                 clearButtonMode="always"
@@ -135,13 +136,16 @@ class Search extends Component {
           }
         );
     };
-
+    
     onPlaceSelect = async (id, passedPlace) => {
         try {
             const place = await fetch(
+            id='EiNIaXAgV28gU3RyZWV0LCBLd3VuIFRvbmcsIEhvbmcgS29uZyIuKiwKFAoSCSlZrI1NAQQ0ETnl_WwCMD5jEhQKEgmVTaCDSAEENBFMhWFJohArzg'
               `https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${API_KEY}
               &fields=${this.props.queryFields}&language=${this.props.language}`
             ).then(response => response.json());
+            Alert.alert(JSON.stringify(id))
+            // console.log(id)
             
             return this.setState(
               {
@@ -155,8 +159,6 @@ class Search extends Component {
                   return this.props.onSelect && this.props.onSelect(place);
               }
             );
-
-            
         } catch (e) {
             return this.setState(
               {
@@ -170,7 +172,7 @@ class Search extends Component {
         }
     };
 }
-
+// const id=onPlaceSelect.onSelect(id);
 Search.propTypes = {
     stylesInput: PropTypes.object,
     stylesContainer: PropTypes.object,
@@ -263,5 +265,5 @@ const styles = StyleSheet.create({
 });
 
 export default Search;
-const call="tyj";
-export {call};
+
+export {id};

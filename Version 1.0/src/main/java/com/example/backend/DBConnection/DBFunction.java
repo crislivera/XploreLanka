@@ -43,6 +43,7 @@ public class DBFunction {
             System.out.println("Successfully Deleted!");
 
             return true;
+
         }
 
         catch(Exception ex){

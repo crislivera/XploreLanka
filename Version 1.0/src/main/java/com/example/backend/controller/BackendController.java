@@ -32,8 +32,6 @@ public class BackendController {
         return con.loginUser(username,password);
     }
 
-
-
     //connect API and database to delete an admin
     public boolean deleteAdmin(Admin admin) throws SQLException{
         return fun.deleteAdmin(admin);
@@ -43,8 +41,6 @@ public class BackendController {
     public boolean deleteUser(User user) throws SQLException{
         return fun.deleteUser(user);
     }
-
-
 
     //connect API and database to update an admin
     public Admin updateAdmin(Admin admin) throws SQLException{

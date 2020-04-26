@@ -12,8 +12,9 @@ public class DBFunction {
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
-    private String username = "root";
-    private String password ="";
+    String connectionString = "jdbc:mysql://159.203.105.235/xploreLanka";
+    String username = "admin";
+    String password = "rusiru@1999";
     private PreparedStatement preparedStatement = null;
     String query;
 
@@ -22,7 +23,6 @@ public class DBFunction {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            String connectionString = "jdbc:mysql://localhost/xplore_lanka?serverTimezone=UTC";
             connection = DriverManager.getConnection(connectionString,username , password);
             System.out.println("Connected to Database...");
             statement = connection.createStatement();

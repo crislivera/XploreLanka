@@ -32,7 +32,7 @@ export default class Login extends React.Component {
     loginDetails.password=this.state.password
         
     try {
-      if(this.state.email == '' || this.state.password == '') {
+      if(this.state.username == '' || this.state.password == '') {
         Alert.alert(Alert,'Please fill all the fields!')
       } 
       else {
@@ -48,12 +48,8 @@ export default class Login extends React.Component {
        .then((res)=>{
          if(res.success === true){
           console.log('User logged-in successfully!')
-           AsyncStorage.setItem('user',res.user);
-           this.setState({
-               email: '', 
-               password: ''
-           })
-           this.props.navigate.navigate('Plan');
+           AsyncStorage.setItem('username',res.user);
+           this.props.navigation.navigate('Plan');
          }
          else{
            Alert.alert(Alert,'Invalid user details');
@@ -76,42 +72,41 @@ export default class Login extends React.Component {
           
         </View> 
         <View style={styles.formContainer}>
-        <View style={styles.inputContainer}>
-          <TextInput style={styles.inputs}
-              placeholder="Username"
-              keyboardType="default"
-              underlineColorAndroid='transparent'
-              value={this.state.username}
-              onChangeText={(value) => this.updateValue(value, 'username')}/>
-        </View>
+          <View style={styles.inputContainer}>
+            <TextInput style={styles.inputs}
+                placeholder="Username"
+                keyboardType="default"
+                underlineColorAndroid='transparent'
+                value={this.state.username}
+                onChangeText={(value) => this.updateValue(value, 'username')}/>
+          </View>
         
-        <View style={styles.inputContainer}>
-          <TextInput style={styles.inputs}
-              placeholder="Password"
-              secureTextEntry={true}
-              underlineColorAndroid='transparent'
-              value={this.state.password}
-              onChangeText={(value) => this.updateValue(value, 'password')}/>
+          <View style={styles.inputContainer}>
+            <TextInput style={styles.inputs}
+                placeholder="Password"
+                secureTextEntry={true}
+                underlineColorAndroid='transparent'
+                value={this.state.password}
+                onChangeText={(value) => this.updateValue(value, 'password')}/>
+          </View>
+
+          <TouchableOpacity
+              style={[styles.buttonContainer, styles.loginButton]}
+              onPress={this.login}>
+            <Text style={styles.loginText}>LOGIN</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+              style={styles.forgotPassword}
+              onPress={() => this.props.navigation.navigate('ForgotPassword')}>
+              <Text style={styles.buttonText}>Forgot password?</Text>
+          </TouchableOpacity>
+
+          <Text style={styles.buttonText}
+            onPress={() => this.props.navigation.navigate('Signup')}>
+            Don't have an account? Signup
+          </Text>
         </View>
-
-        <TouchableOpacity
-            style={[styles.buttonContainer, styles.loginButton]}
-            onPress={this.login}>
-          <Text style={styles.loginText}>LOGIN</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity 
-            style={styles.forgotPassword}
-            onPress={() => this.props.navigation.navigate('ForgotPassword')}>
-            <Text style={styles.buttonText}>Forgot password?</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.buttonText}
-          onPress={() => this.props.navigation.navigate('Signup')}>
-          Don't have an account? Signup
-        </Text>
-
-       </View>
       </SafeAreaView>
     );
   }
@@ -133,7 +128,6 @@ const styles = StyleSheet.create({
     flexGrow:2,
     justifyContent:'center',
   },
-
   formContainer:{
     alignItems: 'center',
     flexGrow:1,

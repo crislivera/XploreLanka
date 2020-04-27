@@ -24,6 +24,7 @@ public class Authenticator_API {
         return controller.loginAdmin(credentials.getUsername(), credentials.getPwd());
     }
 
+    // https://xplorelanka.herokuapp.com/signUpAdmin
     @PostMapping("/signUpAdmin")
     @ResponseBody
     public boolean registerAdmin(@RequestBody Admin admin) throws SQLException {
@@ -54,9 +55,9 @@ public class Authenticator_API {
         controller.resendEmail(user);
     }
 
-    @PostMapping("/verifyOTPBySMS")
+    @PostMapping("/verifyOTP")
     @ResponseBody
-    public boolean verifyUserBySMS(@RequestBody User user) throws SQLException {
-        return controller.verifyUserSMS(user);
+    public boolean verifyUser(@RequestBody User user) throws SQLException {
+        return controller.verifyUser(user);
     }
 }

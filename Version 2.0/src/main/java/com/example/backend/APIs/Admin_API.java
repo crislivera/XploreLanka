@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 @CrossOrigin("*")
 @SpringBootApplication
@@ -13,6 +14,14 @@ import java.sql.SQLException;
 public class Admin_API {
 
     BackendControllers controller = new BackendControllers();
+
+
+    @GetMapping("/")
+    public String index() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return "[API] - " + timestamp + "This is a test for Request Response";
+    }
+
 
     @PostMapping("/deleteAdmin")
     @ResponseBody

@@ -1,12 +1,14 @@
 package com.example.backend.APIs;
 
-import com.example.backend.Models.Trip_Schedule;
+import com.example.backend.Models.Trip;
 import com.example.backend.Models.User;
 import com.example.backend.controller.BackendControllers;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @CrossOrigin("*")
 @SpringBootApplication
@@ -15,29 +17,36 @@ public class User_API {
 
     BackendControllers controller = new BackendControllers();
 
+    // totally new plan
     @PostMapping("/saveSchedule")
     @ResponseBody
-    public void saveSchedule(@RequestBody Trip_Schedule schedule) throws SQLException {
-
+    public Boolean saveSchedule(@RequestBody ArrayList<Trip> schedule) throws SQLException {
+        return null;
     }
 
+    //return existing plan
     @PostMapping("/getSchedule")
     @ResponseBody
-    public void getSchedule(@RequestParam String  id) throws SQLException {
-
+    public ArrayList<Trip> getSchedule(@RequestParam String  id) throws SQLException {
+        return null;
     }
 
+    //edit trip - add delete from front end and return back
+    //delete all existing once fro user ID and replace with new ones
     @PostMapping("/editSchedule")
     @ResponseBody
-    public void editSchedule(@RequestParam String  id) throws SQLException {
-
+    public Boolean editSchedule(@RequestBody ArrayList<Trip> schedule) throws SQLException {
+        return null;
     }
 
+    // totally delete a schedule according to user id
     @PostMapping("/deleteSchedule")
     @ResponseBody
-    public void deleteSchedule(@RequestParam String  id) throws SQLException {
-
+    public Boolean deleteSchedule(@RequestParam String  id) throws SQLException {
+        return null;
     }
+
+
 
     //get the user object from the frontend that is to be deleted
     @PostMapping("/deleteUser")

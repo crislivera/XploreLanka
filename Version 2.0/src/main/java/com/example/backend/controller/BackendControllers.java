@@ -27,7 +27,7 @@ public class BackendControllers {
     }
 
     //verify user using OTP
-    public boolean verifyUserSMS(User user){
+    public boolean verifyUser(User user){
         return connector.verifyUser(user);
     }
 

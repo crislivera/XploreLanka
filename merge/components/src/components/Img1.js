@@ -12,17 +12,17 @@ export default class Img1 extends Component{
      }
     renderElement(){
         if(this.state.value == 'rainy'){
-            return <Icon name="md-rainy" color="#ccc" size={195}/>
+            return <Icon name="md-rainy" color="#ccc" size={115}/>
         }else if(this.state.value == 'cloudy'){
-            return <Icon name="md-cloudy" color="#ccc" size={195}/>
+            return <Icon name="md-cloudy" color="#ccc" size={115}/>
         }else if(this.state.value == 'sunny'){
-            return <Icon name="md-sunny" color="#ccc" size={195}/>
+            return <Icon name="md-sunny" color="#ccc" size={115}/>
         }
      }
      
      render() {
          return (   
-             <View style={{marginLeft:80}}>
+             <View style={{marginLeft:10}}>
                  { this.renderElement() }
              </View>
          );

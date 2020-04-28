@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, TouchableOpacity, Image, Animated, ScrollView, StyleSheet, View, Text } from 'react-native';
 import {id} from '../components/src/components/Search';
-// export {addMore};
+
 export default class Plan extends Component {
 
   constructor() {

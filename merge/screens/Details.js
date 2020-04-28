@@ -3,6 +3,8 @@ import { Image,alert, TouchableOpacity } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 import {id} from '../components/src/components/Search';
 import Img1 from '../components/src/components/Img1';
+import Img2 from '../components/src/components/Img2';
+import Img3 from '../components/src/components/Img3';
 import Geocoder from 'react-native-geocoding';
 import { API_KEY } from '../components/src/components/Key';
 export default class Details extends Component {
@@ -42,6 +44,8 @@ export default class Details extends Component {
                 <Image source={{uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRaAAAAD7K7dT07NnV2zvvDjqJd2I_6RUUJbFKrs047fKM4reByCv4FSw6UejOmI81p--1lK8KGKbjjYG3VdKbffLOvFp-ukiTv1DZ5B6fnt_HqHJIEGn-QiBAyu6WbubFO_mzzEhB0kaWHze9RSYVpI3quJVMIGhSTrMM4JwtlPFEvYoE4l3P0u9cXVw&key=AIzaSyB83SfaccVha2jO_M3UD9_ly5x7I2nbMpo'}}
                  style={{height: 300, width: 380, flex: 1}}/>
                  <Img1/>
+                 <Img2/>
+                 <Img3/>
                 <Text source={{uri: 'https://maps.googleapis.com/maps/api/place/details/json?place_id=EiNIaXAgV28gU3RyZWV0LCBLd3VuIFRvbmcsIEhvbmcgS29uZyIuKiwKFAoSCSlZrI1NAQQ0ETnl_WwCMD5jEhQKEgmVTaCDSAEENBFMhWFJohArzg&fields=name,rating,formatted_phone_number,adr_address&key=AIzaSyB83SfaccVha2jO_M3UD9_ly5x7I2nbMpo'}}>
                 {id}
                 </Text>

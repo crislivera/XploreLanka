@@ -7,7 +7,8 @@ export default class Dateing extends Component {
     super(props)
     this.state = {date:"2020-01-01"}
   }
- 
+  
+
   render(){
     return (
       <DatePicker
@@ -17,6 +18,7 @@ export default class Dateing extends Component {
         placeholder="select date"
         format="YYYY-MM-DD"
         confirmBtnText="Confirm"
+        maxDate="2020-03-01"
         cancelBtnText="Cancel"
         customStyles={{
           dateIcon: {
@@ -34,4 +36,12 @@ export default class Dateing extends Component {
       />
     )
   }
+  // async getDataAxios(){
+  //   const response =
+  //     await axios.get("https://xplorelanka.herokuapp.com/date",
+  //         { params: {date: 'date'}}
+  //     )
+  //   console.log(response.date)
+  // }
 }
+

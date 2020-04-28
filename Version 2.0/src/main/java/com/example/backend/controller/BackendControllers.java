@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.DBConnection.DBConnector;
 import com.example.backend.Models.Admin;
+import com.example.backend.Models.PlaceSession;
 import com.example.backend.Models.Trip;
 import com.example.backend.Models.User;
 
@@ -80,5 +81,13 @@ public class BackendControllers {
     //connect API and database to delete a schedule
     public Boolean deleteSchedule(String id) {
         return connector.deleteSchedule(id);
+    }
+
+    public void setPlace(PlaceSession session) {
+        return;
+    }
+
+    public String getPlace(String id) {
+        return null;
     }
 }

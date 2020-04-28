@@ -1,5 +1,6 @@
 package com.example.backend.APIs;
 
+import com.example.backend.Models.PlaceSession;
 import com.example.backend.Models.Trip;
 import com.example.backend.Models.User;
 import com.example.backend.controller.BackendControllers;
@@ -76,5 +77,19 @@ public class User_API {
         tripList.add(trip2);
 
         return tripList;
+    }
+
+    //get the session object from frontend and save it temporarily in database
+    @PostMapping("/setPlace")
+    @ResponseBody
+    public void setPlace(@RequestBody PlaceSession session) throws SQLException {
+        controller.setPlace(session);
+    }
+
+    //returning the placeID and deleting that record
+    @GetMapping("/getPlace")
+    @ResponseBody
+    public String getPlace(@RequestParam String id) throws SQLException {
+        return controller.getPlace(id);
     }
 }

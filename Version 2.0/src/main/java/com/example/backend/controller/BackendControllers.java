@@ -83,11 +83,13 @@ public class BackendControllers {
         return connector.deleteSchedule(id);
     }
 
+    //connect API and database to save placeID temporarily
     public void setPlace(PlaceSession session) {
-        return;
+        connector.setPlace(session);
     }
 
+    //connect API and database to return placeID and delete that record
     public String getPlace(String id) {
-        return null;
+        return connector.getPlace(id);
     }
 }

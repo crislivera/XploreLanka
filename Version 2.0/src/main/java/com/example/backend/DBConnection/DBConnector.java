@@ -2,6 +2,7 @@ package com.example.backend.DBConnection;
 
 
 import com.example.backend.Models.Admin;
+import com.example.backend.Models.PlaceSession;
 import com.example.backend.Models.Trip;
 import com.example.backend.Models.User;
 import com.example.backend.userVerification.VerifyByMail;
@@ -336,6 +337,13 @@ public class DBConnector {
     }
 
     public Boolean deleteSchedule(String id) {
+        return null;
+    }
+
+    public void setPlace(PlaceSession session) {
+    }
+
+    public String getPlace(String id) {
         return null;
     }
 }

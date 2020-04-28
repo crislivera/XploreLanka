@@ -2,9 +2,11 @@ package com.example.backend.controller;
 
 import com.example.backend.DBConnection.DBConnector;
 import com.example.backend.Models.Admin;
+import com.example.backend.Models.Trip;
 import com.example.backend.Models.User;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BackendControllers {
 
@@ -58,5 +60,21 @@ public class BackendControllers {
     //connect API and database to update a user
     public User updateUser(User user) throws SQLException{
         return connector.updateUser(user);
+    }
+
+    public Boolean saveSchedule(ArrayList<Trip> schedule) {
+        return null;
+    }
+
+    public ArrayList<Trip> getSchedule(String id) {
+        return null;
+    }
+
+    public Boolean editSchedule(ArrayList<Trip> schedule) {
+        return null;
+    }
+
+    public Boolean deleteSchedule(String id) {
+        return null;
     }
 }

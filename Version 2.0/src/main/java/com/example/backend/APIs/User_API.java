@@ -21,14 +21,14 @@ public class User_API {
     @PostMapping("/saveSchedule")
     @ResponseBody
     public Boolean saveSchedule(@RequestBody ArrayList<Trip> schedule) throws SQLException {
-        return null;
+        return controller.saveSchedule(schedule);
     }
 
     //return existing plan
     @PostMapping("/getSchedule")
     @ResponseBody
     public ArrayList<Trip> getSchedule(@RequestParam String  id) throws SQLException {
-        return null;
+        return controller.getSchedule(id);
     }
 
     //edit trip - add delete from front end and return back
@@ -36,14 +36,14 @@ public class User_API {
     @PostMapping("/editSchedule")
     @ResponseBody
     public Boolean editSchedule(@RequestBody ArrayList<Trip> schedule) throws SQLException {
-        return null;
+        return controller.editSchedule(schedule);
     }
 
     // totally delete a schedule according to user id
     @PostMapping("/deleteSchedule")
     @ResponseBody
     public Boolean deleteSchedule(@RequestParam String  id) throws SQLException {
-        return null;
+        return controller.deleteSchedule(id);
     }
 
 

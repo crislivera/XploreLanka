@@ -2,6 +2,7 @@ package com.example.backend.DBConnection;
 
 
 import com.example.backend.Models.Admin;
+import com.example.backend.Models.Trip;
 import com.example.backend.Models.User;
 import com.example.backend.userVerification.VerifyByMail;
 import com.example.backend.userVerification.VerifyBySMS;
@@ -293,4 +294,7 @@ public class DBConnector {
     }
 
 
+    public Boolean saveSchedule(ArrayList<Trip> schedule) {
+        return null;
+    }
 }

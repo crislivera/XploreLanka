@@ -32,7 +32,7 @@ public class User_API {
     }
 
     //edit trip - add delete from front end and return back
-    //delete all existing once fro user ID and replace with new ones
+    //delete all existing once from user ID and replace with new ones
     @PostMapping("/editSchedule")
     @ResponseBody
     public Boolean editSchedule(@RequestBody ArrayList<Trip> schedule) throws SQLException {

@@ -297,4 +297,16 @@ public class DBConnector {
     public Boolean saveSchedule(ArrayList<Trip> schedule) {
         return null;
     }
+
+    public ArrayList<Trip> getSchedule(String id) {
+        return null;
+    }
+
+    public Boolean editSchedule(ArrayList<Trip> schedule) {
+        return null;
+    }
+
+    public Boolean deleteSchedule(String id) {
+        return null;
+    }
 }

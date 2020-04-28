@@ -1,26 +1,49 @@
 package com.example.backend.Models;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 public class Trip {
 
+    int tripID;
     int userID;
-    String locations;
-    Date date;
+    String locationName;
+    String placeID;
+    String city;
     String weather;
+    Date date;
 
-    public Trip(int userID, String locations, Date date, String weather) {
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+    // while returning stored schedules
+    public Trip(int tripID, int userID, String locationName, String placeID, String city, String weather, String date) throws ParseException {
+        this.tripID = tripID;
         this.userID = userID;
-        this.locations = locations;
-        this.date = date;
+        this.locationName = locationName;
+        this.placeID = placeID;
+        this.city = city;
         this.weather = weather;
+        this.date = (Date) format.parse(date);
     }
 
-    public Trip(String locations, Date date, String weather) {
-        this.locations = locations;
-        this.date = date;
+    // This comes when data comes from front end to be saved
+    public Trip(int userID, String locationName, String placeID, String city, String weather, String date) throws ParseException {
+        this.userID = userID;
+        this.locationName = locationName;
+        this.placeID = placeID;
+        this.city = city;
         this.weather = weather;
+        this.date = (Date) format.parse(date);
+    }
+
+    public int getTripID() {
+        return tripID;
+    }
+
+    public void setTripID(int tripID) {
+        this.tripID = tripID;
     }
 
     public int getUserID() {
@@ -31,20 +54,28 @@ public class Trip {
         this.userID = userID;
     }
 
-    public String getLocations() {
-        return locations;
+    public String getLocationName() {
+        return locationName;
     }
 
-    public void setLocations(String locations) {
-        this.locations = locations;
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 
-    public Date getDate() {
-        return date;
+    public String getPlaceID() {
+        return placeID;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setPlaceID(String placeID) {
+        this.placeID = placeID;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getWeather() {
@@ -55,30 +86,12 @@ public class Trip {
         this.weather = weather;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Trip trip = (Trip) o;
-        return userID == trip.userID &&
-                Objects.equals(locations, trip.locations) &&
-                Objects.equals(date, trip.date) &&
-                Objects.equals(weather, trip.weather);
+    public Date getDate() {
+        return date;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(userID, locations, date, weather);
-    }
-
-    @Override
-    public String toString() {
-        return "Trip{" +
-                "userID=" + userID +
-                ", locations='" + locations + '\'' +
-                ", date=" + date +
-                ", weather='" + weather + '\'' +
-                '}';
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
 

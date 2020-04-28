@@ -1,6 +1,6 @@
 package com.example.backend.Models;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
@@ -15,7 +15,7 @@ public class Trip {
     String weather;
     Date date;
 
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 
     // while returning stored schedules
     public Trip(int tripID, int userID, String locationName, String placeID, String city, String weather, String date) throws ParseException {
@@ -25,7 +25,7 @@ public class Trip {
         this.placeID = placeID;
         this.city = city;
         this.weather = weather;
-        this.date = (Date) format.parse(date);
+        this.date = format.parse(date);
     }
 
     // This comes when data comes from front end to be saved
@@ -35,7 +35,7 @@ public class Trip {
         this.placeID = placeID;
         this.city = city;
         this.weather = weather;
-        this.date = (Date) format.parse(date);
+        this.date = format.parse(date);
     }
 
     public int getTripID() {

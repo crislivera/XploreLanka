@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 @CrossOrigin("*")
@@ -21,6 +22,7 @@ public class User_API {
     @PostMapping("/saveSchedule")
     @ResponseBody
     public Boolean saveSchedule(@RequestBody ArrayList<Trip> schedule) throws SQLException {
+        System.out.println(schedule);
         return controller.saveSchedule(schedule);
     }
 
@@ -60,5 +62,19 @@ public class User_API {
     @ResponseBody
     public User updateUser(@RequestBody User user) throws SQLException{
         return controller.updateUser(user);
+    }
+
+    @GetMapping("/testing")
+    @ResponseBody
+    public ArrayList<Trip> testing() throws ParseException {
+        ArrayList<Trip> tripList = new ArrayList<Trip>();
+
+        Trip trip1 = new Trip(1, "Mathara", "P1", "Mathara","Sunny","2020-05-23");
+        Trip trip2 = new Trip(1, "Galle", "P2", "Galle","Rainy","2020-05-30");
+
+        tripList.add(trip1);
+        tripList.add(trip2);
+
+        return tripList;
     }
 }

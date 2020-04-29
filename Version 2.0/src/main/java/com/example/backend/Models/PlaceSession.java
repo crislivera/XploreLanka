@@ -5,6 +5,10 @@ public class PlaceSession {
     String userID;
     String placeID;
 
+    public PlaceSession() {
+
+    }
+
     public PlaceSession(String userID, String placeID) {
         this.userID = userID;
         this.placeID = placeID;
@@ -28,7 +32,7 @@ public class PlaceSession {
 
     @Override
     public String toString() {
-        return "TempTrip{" +
+        return "PlaceSession{" +
                 "userID='" + userID + '\'' +
                 ", placeID='" + placeID + '\'' +
                 '}';

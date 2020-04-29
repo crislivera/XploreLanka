@@ -89,7 +89,7 @@ public class BackendControllers {
     }
 
     //connect API and database to return placeID and delete that record
-    public String getPlace(String id) {
+    public String getPlace(String id) throws SQLException {
         return connector.getPlace(id);
     }
 }

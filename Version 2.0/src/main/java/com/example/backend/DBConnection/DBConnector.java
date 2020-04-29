@@ -8,6 +8,7 @@ import com.example.backend.Models.User;
 import com.example.backend.userVerification.VerifyByMail;
 import com.example.backend.userVerification.VerifyBySMS;
 
+import javax.mail.Session;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -340,10 +341,47 @@ public class DBConnector {
         return null;
     }
 
+    //temporarily saved in database
     public void setPlace(PlaceSession session) {
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement("Insert into tempSessionForPlace values (?,?)");
+            statement.setString(1, session.getUserID());
+            statement.setString(2, session.getPlaceID());
+            statement.execute();
+
+            System.out.println("Successfully saved!");
+            System.out.println(session);
+        } catch (Exception ex) {
+            System.out.println("Error in saving values : " + ex.getMessage());
+        }
     }
 
-    public String getPlace(String id) {
-        return null;
+    //return the placeID and delete the record from database
+    public String getPlace(String id)throws SQLException {
+
+        query = "SELECT * " + "FROM tempSessionForPlace";
+        resultSet = statement.executeQuery(query);
+
+        String placeID = "";
+        while (resultSet.next()) {
+            if (resultSet.getString("userId").equals(id))
+                placeID = resultSet.getString("placeId");
+            break;
+        }
+
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement("Delete from tempSessionForPlace Where userId = ?");
+            statement.setString(1, id);
+            statement.execute();
+            System.out.println("Successfully Deleted!");
+        } catch (Exception ex) {
+            System.out.println("Error in deleting admin : " + ex.getMessage());
+        }
+        return placeID;
+
     }
+
 }

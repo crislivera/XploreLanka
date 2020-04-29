@@ -33,10 +33,8 @@ public class VerifyByMail {
 
             char character;
             for (int c=0; c<6;c++){
-                if (c==3){
                     character = characterList.charAt(random.nextInt(characterList.length()));
                     OTP +=character;
-                }
             }
 
             Message message = new MimeMessage(session);
@@ -44,7 +42,7 @@ public class VerifyByMail {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(String.valueOf(mail)));
             message.setSubject("Verification code from XploreLanka");
             message.setText("Welcome To Xplore Lanka\n" +
-                    "Hi " + name + "Your one-time verification code is: " + OTP + ". \n" +
+                    "Hi " + name + ", your one-time verification code is: " + OTP + ". \n" +
                     "               -XploreLanka by InforMates");
 
             Transport.send(message);

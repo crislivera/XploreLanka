@@ -24,7 +24,6 @@ import Logout from './components/test/Logout';
 import Signup from './components/test/Signup';
 import ForgotPassword from './components/test/ForgotPassword';
 import OtpScreen from './components/test/OtpScreen';
-import {addMore} from './components/src/components/Search';;
 
 const Stack = createStackNavigator();
 const Tab =createBottomTabNavigator();
@@ -154,13 +153,16 @@ const PlanScreen = props => (
 // const LoginScreen = props => (
 //    <Login/>
 //  );
+add = () => {
+new Plan().addMore();
+};
 
 const DetailsScreen = ({ navigation, props })=> (
   <ScrollView>
   <View style={{alignSelf:'center'}}>
     
     <Details/>
-    <Button color="#50C7C7" shadowless onPress={() => navigation.navigate("Plan")}>Add Location</Button>
+    <Button color="#50C7C7" shadowless onPress={() => navigation.navigate("Plan"), add(this)}>Add Location</Button>
     
   </View>
   </ScrollView>

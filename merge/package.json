@@ -36,7 +36,8 @@
     "react-native-screens": "~2.2.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "~0.11.7",
-    "react-navigation-stack": "^2.3.11"
+    "react-navigation-stack": "^2.3.11",
+    "split-string": "^6.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

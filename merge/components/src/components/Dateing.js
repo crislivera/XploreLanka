@@ -1,13 +1,23 @@
  
 import React, { Component } from 'react'
 import DatePicker from 'react-native-datepicker'
- 
+import { Alert } from 'react-native'
 export default class Dateing extends Component {
   constructor(props){
     super(props)
-    this.state = {date:"2020-01-01"}
+    this.state = {date:''}
+    this.handleChangeText = this.handleChangeText.bind(this)
   }
-  
+
+  handleChangeText(newText){
+    this.setState({
+      date:newText
+    })
+    axios.post('https://xplorelanka.herokuapp.com/prediction',this.state)
+    .then(res => {
+      Alert.alert(JSON.stringify(res))
+    })
+  }
 
   render(){
     return (
@@ -18,7 +28,6 @@ export default class Dateing extends Component {
         placeholder="select date"
         format="YYYY-MM-DD"
         confirmBtnText="Confirm"
-        maxDate="2020-03-01"
         cancelBtnText="Cancel"
         customStyles={{
           dateIcon: {
@@ -32,16 +41,16 @@ export default class Dateing extends Component {
           }
           // ... You can check the source to find the other keys.
         }}
-        onDateChange={(date) => {this.setState({date: date})}}
+        onDateChange={(date) => {this.setState({date})}}
       />
     )
   }
-  // async getDataAxios(){
-  //   const response =
-  //     await axios.get("https://xplorelanka.herokuapp.com/date",
-  //         { params: {date: 'date'}}
-  //     )
-  //   console.log(response.date)
-  // }
+  async getDataAxios(){
+    const response =
+      await axios.get("https://xplorelanka.herokuapp.com/date",
+          { params: {date: 'date'}}
+      )
+    console.log(response.date)
+  }
 }
 

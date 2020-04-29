@@ -65,9 +65,9 @@ export default class Plan extends Component {
           </View>
         </ScrollView>
 
-        <TouchableOpacity activeOpacity={0.8} style={styles.buttonDesign} disabled={this.state.disabled} onPress={this.addMore}>
+        {/* <TouchableOpacity activeOpacity={0.8} style={styles.buttonDesign} disabled={this.state.disabled} onPress={this.addMore}>
           <Image source={require('../assets/xl.png')} style={styles.buttonImage} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }

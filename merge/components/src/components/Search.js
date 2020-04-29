@@ -1,5 +1,6 @@
 import React, { Component, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import {
     ActivityIndicator,
     StyleSheet,
@@ -11,6 +12,7 @@ import {
     AsyncStorage,
 } from 'react-native';
 import {API_KEY} from './Key';
+import { Button } from 'native-base';
 const id='EiNIaXAgV28gU3RyZWV0LCBLd3VuIFRvbmcsIEhvbmcgS29uZyIuKiwKFAoSCSlZrI1NAQQ0ETnl_WwCMD5jEhQKEgmVTaCDSAEENBFMhWFJohArzg';
 class Search extends Component {
     state = {
@@ -21,6 +23,8 @@ class Search extends Component {
     };
 
     timeout = null;
+
+    
 
     render() {
         return (
@@ -140,12 +144,27 @@ class Search extends Component {
     onPlaceSelect = async (id, passedPlace) => {
         try {
             const place = await fetch(
-            id='EiNIaXAgV28gU3RyZWV0LCBLd3VuIFRvbmcsIEhvbmcgS29uZyIuKiwKFAoSCSlZrI1NAQQ0ETnl_WwCMD5jEhQKEgmVTaCDSAEENBFMhWFJohArzg'
+            // id='EiNIaXAgV28gU3RyZWV0LCBLd3VuIFRvbmcsIEhvbmcgS29uZyIuKiwKFAoSCSlZrI1NAQQ0ETnl_WwCMD5jEhQKEgmVTaCDSAEENBFMhWFJohArzg'
               `https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${API_KEY}
               &fields=${this.props.queryFields}&language=${this.props.language}`
             ).then(response => response.json());
             Alert.alert(JSON.stringify(id))
             // console.log(id)
+            await AsyncStorage.setItem('super',id);
+            
+
+            // const data = {
+            //     userID : "u1test",
+            //     placeID : id
+            // }
+
+            // axios.post('https://xplorelanka.herokuapp.com/setPlace',data)
+            // .then(res => {
+            //     console.log(res.status)
+            // })
+            // .catch(error => {
+            //     console.log(error)
+            // })
             
             return this.setState(
               {

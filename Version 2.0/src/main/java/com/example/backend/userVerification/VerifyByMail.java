@@ -12,7 +12,7 @@ public class VerifyByMail {
     private static Random random = new Random();
     private  static String OTP = "";
 
-    public boolean verifyMail(String mail) {
+    public boolean verifyMail(String mail, String name) {
         final String username = "xplorelanka@gmail.com";
         final String password = "informates@2020";
 
@@ -43,8 +43,9 @@ public class VerifyByMail {
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(String.valueOf(mail)));
             message.setSubject("Verification code from XploreLanka");
-            message.setText("Welcome To Xplore Lanka: " + OTP + ". \n" +
-                    "               -InforMates");
+            message.setText("Welcome To Xplore Lanka\n" +
+                    "Hi " + name + "Your one-time verification code is: " + OTP + ". \n" +
+                    "               -XploreLanka by InforMates");
 
             Transport.send(message);
 

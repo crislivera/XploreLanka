@@ -146,7 +146,7 @@ public class DBConnector {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement statement = null;
         VerifyByMail verifyUser = new VerifyByMail();
-        verifyUser.verifyMail(obj.getEmail());
+        verifyUser.verifyMail(obj.getEmail(),obj.getfName());
         try {
             statement = connection.prepareStatement("Update user Set OTP = ? Where username = ?");
             statement.setString(1, verifyUser.getOTP());

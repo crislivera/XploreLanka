@@ -8,9 +8,7 @@ import com.example.backend.Models.User;
 import com.example.backend.userVerification.VerifyByMail;
 import com.example.backend.userVerification.VerifyBySMS;
 
-import javax.mail.Session;
 import java.sql.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public class DBConnector {

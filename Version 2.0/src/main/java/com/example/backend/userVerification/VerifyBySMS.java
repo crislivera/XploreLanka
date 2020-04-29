@@ -1,43 +1,47 @@
 package com.example.backend.userVerification;
 
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Random;
 
+// TEXTIT.BIZ SMS Gateway
 public class VerifyBySMS {
 
-    static final String SID = "AC5b35daa9ff71b52753698f0b190701dc";
-    static final String TOKEN = "fec2af60cb3a2c30516755253b1e37c3";
     static final String characterList = "1234567890";
     static Random random = new Random();
     private  String OTP = "";
 
-    public void sendMessage(String contactNo) {
-        Twilio.init(SID,TOKEN);
+    static final String username = "94763358718";
+    static final String password = "3282";
 
-        Message msg = Message.creator(
-                new PhoneNumber(contactNo),
-                new PhoneNumber("+12057975084"),
-                "Welcome To Xplore Lanka: " + OTP + ". \n" +
-                        "               -InforMates"
-        ).create();
 
-        System.out.println(msg.getSid());
+
+
+    public void sendMessage(String contactNo) throws IOException {
+        String message = "Welcome+To+Xplore+Lanka+" +
+                "+Your+one+time+OTP+code+is:+" + OTP +
+                "+-XploreLanka+by+InforMates";
+        String url ="http://textit.biz/sendmsg/index.php?id=" + username + "&pw=" + password + "&to=" + contactNo + "&text=" + message;
+        URL textit = new URL(url);
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(textit.openStream()));
+
+        String inputLine;
+        while ((inputLine = in.readLine()) != null)
+            System.out.println("[SMS GATEWAY] - " + inputLine);
+        in.close();
+        System.out.println("[SMS GATEWAY] - OTP code: " + OTP);
     }
+
 
     public void generateOTP() {
         char character ;
         for (int c=0; c<7;c++){
-            if (c==3){
-                OTP +=" ";
-            }else{
                 character = characterList.charAt(random.nextInt(characterList.length()));
                 OTP +=character;
-            }
         }
-        System.out.println(OTP);
     }
 
     public String getOTP() {

@@ -1,10 +1,7 @@
 package com.example.backend.DBConnection;
 
 
-import com.example.backend.Models.Admin;
-import com.example.backend.Models.PlaceSession;
-import com.example.backend.Models.Trip;
-import com.example.backend.Models.User;
+import com.example.backend.Models.*;
 import com.example.backend.userVerification.VerifyByMail;
 import com.example.backend.userVerification.VerifyBySMS;
 
@@ -190,13 +187,13 @@ public class DBConnector {
     // check from front end for verified or not
     // return object
     // check for empty object if user doesnt exist
-    public User loginUser(String username, String password) throws SQLException {
+    public User loginUser(Credentials credentials) throws SQLException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         query = "SELECT * " + "FROM user";
         resultSet = statement.executeQuery(query);
         User obj = new User();
         while (resultSet.next()){
-            if((resultSet.getString("username").equals(username)&&(resultSet.getString("password").equals(password)))){
+            if((resultSet.getString("username").equals(credentials.getUsername())&&(resultSet.getString("password").equals(credentials.getPwd())))){
                 obj.setfName(resultSet.getString("fname"));
                 obj.setlName(resultSet.getString("lname"));
                 obj.setAddress(resultSet.getString("address"));

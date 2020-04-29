@@ -1,10 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.DBConnection.DBConnector;
-import com.example.backend.Models.Admin;
-import com.example.backend.Models.PlaceSession;
-import com.example.backend.Models.Trip;
-import com.example.backend.Models.User;
+import com.example.backend.Models.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,8 +22,8 @@ public class BackendControllers {
         return connector.loginAdmin(username,password);
     }
 
-    public User loginUser(String username,String password) throws SQLException {
-        return connector.loginUser(username,password);
+    public User loginUser(Credentials credentials) throws SQLException {
+        return connector.loginUser(credentials);
     }
 
     //verify user using OTP

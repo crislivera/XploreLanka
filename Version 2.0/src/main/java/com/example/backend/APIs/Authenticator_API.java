@@ -33,8 +33,8 @@ public class Authenticator_API {
 
     @PostMapping("/signInUser")
     @ResponseBody
-    public User loginUser(@PathVariable String username, @PathVariable String pwd) throws SQLException {
-        return controller.loginUser(username, pwd);
+    public User loginUser(@RequestBody Credentials credentials) throws SQLException {
+        return controller.loginUser(credentials);
     }
 
     @PostMapping("/signUpUser")

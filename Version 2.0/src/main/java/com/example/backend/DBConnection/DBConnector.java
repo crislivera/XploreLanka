@@ -200,10 +200,10 @@ public class DBConnector {
                 obj.setContact(resultSet.getString("contact"));
                 obj.setEmail(resultSet.getString("email"));
                 obj.setUsername(resultSet.getString("username"));
-                obj.setPassword(resultSet.getString("******"));
+                obj.setPassword(resultSet.getString("password"));
                 obj.setUserID(resultSet.getInt("userID"));
                 obj.setVerify(resultSet.getBoolean("verified"));
-                System.out.println("[SERVER] " + timestamp + " - Successfully logged in by User: " + username);
+                System.out.println("[SERVER] " + timestamp + " - Successfully logged in by User: " + credentials.getUsername());
                 break;
             }else {
                 obj.setfName(resultSet.getString(""));
@@ -272,7 +272,6 @@ public class DBConnector {
 
             System.out.println("[SERVER] " + timestamp + " - Successfully Updated " + admin);
             System.out.println("");
-            System.out.println(admin);
         } catch(Exception ex){
             System.out.println("[SERVER] " + timestamp + " - Error in updating admin : " + ex.getMessage());
         }
@@ -284,14 +283,12 @@ public class DBConnector {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement statement = null;
         try{
-            statement = connection.prepareStatement("Update user Set fname = ?, lname = ?, address = ?, contact = ?, email = ?, password = ? Where userID = ?");
+            statement = connection.prepareStatement("Update user Set fname = ?, lname = ?, address = ?, password = ? Where username = ?");
             statement.setString(1,user.getfName());
             statement.setString(2,user.getlName());
             statement.setString(3,user.getAddress());
-            statement.setString(4,user.getContact());
-            statement.setString(5,user.getEmail());
-            statement.setString(6,user.getPassword());
-            statement.setInt(7,user.getUserID());
+            statement.setString(4,user.getPassword());
+            statement.setString(5,user.getUsername());
             statement.execute();
 
             System.out.println("[SERVER] " + timestamp + " - Successfully Updated " + user);

@@ -31,7 +31,7 @@ public class DBConnector {
             statement = connection.createStatement();
 
         } catch (Exception ex) {
-            System.out.println("[SERVER]" + timestamp + "Connection error...\n" + ex);
+            System.out.println("[SERVER]" + timestamp + " - Connection error...\n" + ex);
         }
     }
 
@@ -70,12 +70,14 @@ public class DBConnector {
         Admin obj = new Admin();
 
         while (resultSet.next()) {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             if ((resultSet.getString("username").equals(username) && (resultSet.getString("password").equals(password)))) {
                 obj.setfName(resultSet.getString("fname"));
                 obj.setlName(resultSet.getString("lname"));
                 obj.setPassword("******");
                 obj.setUsername(resultSet.getString("username"));
                 obj.setContactNo(resultSet.getString("contactNo"));
+                System.out.println("[SERVER] " + timestamp + " - Successfully logged in by Admin: " + username);
                 break;
             } else{
                 obj.setfName(resultSet.getString(""));
@@ -83,6 +85,7 @@ public class DBConnector {
                 obj.setPassword("");
                 obj.setUsername(resultSet.getString(""));
                 obj.setContactNo(resultSet.getString(""));
+                System.out.println("[SERVER] " + timestamp + " - No Admin found! ");
             }
         }
         return obj;
@@ -111,17 +114,18 @@ public class DBConnector {
             statement.setString(10, obj.getOTP());
             statement.execute();
 
-            verifyUser.sendMessage(obj.getContact());
+            verifyUser.sendMessage(obj.getContact(),obj.getfName());
             System.out.println("[SERVER] " + timestamp + " - Successfully added User: " + obj);
             return true;
         } catch (Exception ex) {
-            System.out.println("[SERVER] " + timestamp + " - Duplicating user usernames : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in adding user : " + ex.getMessage());
             return false;
         }
     }
 
     //this will resend the OTP incase number is correct but didnt receive OTP
     public void resendOTP(User obj) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement statement = null;
         VerifyBySMS verifyUser = new VerifyBySMS();
         verifyUser.generateOTP();
@@ -131,14 +135,15 @@ public class DBConnector {
             statement.setString(2, obj.getUsername());
             statement.execute();
 
-            System.out.println("Successfully Updated!");
-            System.out.println(obj);
+            verifyUser.sendMessage(obj.getContact(),obj.getfName());
+            System.out.println("[SERVER] " + timestamp + " - Successfully Updated " + obj);
         } catch (Exception ex) {
-            System.out.println("Error in updating admin : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in updating admin : " + ex.getMessage());
         }
     }
 
     public void resendEmail(User obj) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement statement = null;
         VerifyByMail verifyUser = new VerifyByMail();
         verifyUser.verifyMail(obj.getEmail());
@@ -148,10 +153,9 @@ public class DBConnector {
             statement.setString(2, obj.getUsername());
             statement.execute();
 
-            System.out.println("Successfully Updated!");
-            System.out.println(obj);
+            System.out.println("[SERVER] " + timestamp + " - Successfully Updated " + obj);
         } catch (Exception ex) {
-            System.out.println("Error in updating admin : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in updating admin : " + ex.getMessage());
         }
     }
 
@@ -159,6 +163,7 @@ public class DBConnector {
     // if matched set verify = true
     // user can now login
     public boolean verifyUser(User obj) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         query = "SELECT OTP,username FROM user";
         try {
             resultSet = statement.executeQuery(query);
@@ -171,10 +176,10 @@ public class DBConnector {
                     statement.setString(2, obj.getContact());
                     statement.setString(3, obj.getUsername());
                     statement.execute();
-                    System.out.println("User Verified!");
+                    System.out.println("[SERVER] " + timestamp + " - User Verified " + obj);
                     return true;
                 }
-            System.out.println("Verification Code is incorrect");
+            System.out.println("[SERVER] " + timestamp + " - Verification Code is incorrect " + obj);
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -186,6 +191,7 @@ public class DBConnector {
     // return object
     // check for empty object if user doesnt exist
     public User loginUser(String username, String password) throws SQLException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         query = "SELECT * " + "FROM user";
         resultSet = statement.executeQuery(query);
         User obj = new User();
@@ -200,6 +206,7 @@ public class DBConnector {
                 obj.setPassword(resultSet.getString("******"));
                 obj.setUserID(resultSet.getInt("userID"));
                 obj.setVerify(resultSet.getBoolean("verified"));
+                System.out.println("[SERVER] " + timestamp + " - Successfully logged in by User: " + username);
                 break;
             }else {
                 obj.setfName(resultSet.getString(""));
@@ -210,6 +217,7 @@ public class DBConnector {
                 obj.setUsername(resultSet.getString(""));
                 obj.setPassword(resultSet.getString(""));
                 obj.setUserID(resultSet.getInt(""));
+                System.out.println("[SERVER] " + timestamp + " - No user found! ");
             }
         }
         return obj;
@@ -222,36 +230,39 @@ public class DBConnector {
     // true if deleted
     // need to check if non existing admin is deleted
     public boolean deleteAdmin(Admin admin) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement statement = null;
         try{
             statement = connection.prepareStatement("Delete from admin Where username = ?");
             statement.setString(1,admin.getUsername());
             statement.execute();
-            System.out.println("Successfully Deleted!");
+            System.out.println("[SERVER] " + timestamp + " - Successfully Deleted " + admin);
             return true;
         } catch(Exception ex){
-            System.out.println("Error in deleting admin : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in deleting admin : " + ex.getMessage());
             return false;
         }
     }
 
     //delete the user from the database
     public boolean deleteUser(User user) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement statement = null;
         try{
             statement = connection.prepareStatement("Delete from user where username = ?");
             statement.setString(1,user.getUsername());
             statement.execute();
-            System.out.println("Successfully Deleted!");
+            System.out.println("[SERVER] " + timestamp + " - Successfully Deleted " + user);
             return true;
         } catch(Exception ex){
-            System.out.println("Error in deleting user : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in deleting user : " + ex.getMessage());
             return false;
         }
     }
 
     //update the admin from the database
     public Admin updateAdmin(Admin admin) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement statement = null;
         try{
             statement = connection.prepareStatement("Update admin Set fname = ?, lname = ?, password = ?, contactNo = ? Where username = ?");
@@ -262,17 +273,18 @@ public class DBConnector {
             statement.setString(5,admin.getUsername());
             statement.execute();
 
-            System.out.println("Successfully Updated!");
+            System.out.println("[SERVER] " + timestamp + " - Successfully Updated " + admin);
             System.out.println("");
             System.out.println(admin);
         } catch(Exception ex){
-            System.out.println("Error in updating admin : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in updating admin : " + ex.getMessage());
         }
         return admin;
     }
 
     //update the user from the database
     public User updateUser(User user) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement statement = null;
         try{
             statement = connection.prepareStatement("Update user Set fname = ?, lname = ?, address = ?, contact = ?, email = ?, password = ? Where userID = ?");
@@ -285,11 +297,11 @@ public class DBConnector {
             statement.setInt(7,user.getUserID());
             statement.execute();
 
-            System.out.println("Successfully Updated!");
+            System.out.println("[SERVER] " + timestamp + " - Successfully Updated " + user);
             System.out.println("");
             System.out.println(user);
         } catch(Exception ex){
-            System.out.println("Error in updating user : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in updating user : " + ex.getMessage());
         }
         return user;
     }
@@ -328,19 +340,23 @@ public class DBConnector {
     }
 
     public ArrayList<Trip> getSchedule(String id) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return null;
     }
 
     public Boolean editSchedule(ArrayList<Trip> schedule) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return null;
     }
 
     public Boolean deleteSchedule(String id) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return null;
     }
 
     //temporarily saved in database
     public void setPlace(PlaceSession session) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement statement = null;
 
         try {
@@ -349,16 +365,16 @@ public class DBConnector {
             statement.setString(2, session.getPlaceID());
             statement.execute();
 
-            System.out.println("Successfully saved!");
+            System.out.println("[SERVER] " + timestamp + " - Successfully saved " + session);
             System.out.println(session);
         } catch (Exception ex) {
-            System.out.println("Error in saving values : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in saving values : " + ex.getMessage());
         }
     }
 
     //return the placeID and delete the record from database
     public String getPlace(String id)throws SQLException {
-
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         query = "SELECT * " + "FROM tempSessionForPlace";
         resultSet = statement.executeQuery(query);
 
@@ -374,9 +390,9 @@ public class DBConnector {
             statement = connection.prepareStatement("Delete from tempSessionForPlace Where userId = ?");
             statement.setString(1, id);
             statement.execute();
-            System.out.println("Successfully Deleted!");
+            System.out.println("[SERVER] " + timestamp + " - Successfully Deleted id: " + id);
         } catch (Exception ex) {
-            System.out.println("Error in deleting admin : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in deleting admin : " + ex.getMessage());
         }
         return placeID;
 

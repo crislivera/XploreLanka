@@ -32,15 +32,12 @@ public class VerifyByMail {
         try{
 
             char character;
-            for (int c=0; c<7;c++){
+            for (int c=0; c<6;c++){
                 if (c==3){
-                    OTP +=" ";
-                }else{
                     character = characterList.charAt(random.nextInt(characterList.length()));
                     OTP +=character;
                 }
             }
-            System.out.println(OTP);
 
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
@@ -51,7 +48,7 @@ public class VerifyByMail {
 
             Transport.send(message);
 
-            System.out.println("Successfully send!");
+            System.out.println("[EMAIL SERVER] - Successfully send!");
 
             return true;
 

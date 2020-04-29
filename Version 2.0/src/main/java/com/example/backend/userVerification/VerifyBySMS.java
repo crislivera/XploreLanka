@@ -19,8 +19,9 @@ public class VerifyBySMS {
 
 
 
-    public void sendMessage(String contactNo) throws IOException {
-        String message = "Welcome+To+Xplore+Lanka+" +
+    public void sendMessage(String contactNo, String name) throws IOException {
+        String message = "Hi+" + name +
+                "+Welcome+To+Xplore+Lanka.+" +
                 "+Your+one+time+OTP+code+is:+" + OTP +
                 "+-XploreLanka+by+InforMates";
         String url ="http://textit.biz/sendmsg/index.php?id=" + username + "&pw=" + password + "&to=" + contactNo + "&text=" + message;
@@ -38,7 +39,7 @@ public class VerifyBySMS {
 
     public void generateOTP() {
         char character ;
-        for (int c=0; c<7;c++){
+        for (int c=0; c<6;c++){
                 character = characterList.charAt(random.nextInt(characterList.length()));
                 OTP +=character;
         }

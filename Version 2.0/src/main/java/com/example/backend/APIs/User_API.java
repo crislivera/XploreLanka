@@ -22,8 +22,7 @@ public class User_API {
     // totally new plan
     @PostMapping("/saveSchedule")
     @ResponseBody
-    public Boolean saveSchedule(@RequestBody ArrayList<Schedule> schedule) throws SQLException {
-        System.out.println(schedule);
+    public Boolean saveSchedule(@RequestBody Schedule schedule) throws SQLException {
         return controller.saveSchedule(schedule);
     }
 

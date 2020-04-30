@@ -2,9 +2,7 @@ package com.example.backend.Models;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Objects;
 
 public class Schedule {
 
@@ -18,14 +16,13 @@ public class Schedule {
     SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
 
     // This comes when data comes from frontend to be saved and while returning stored schedules
-    public Schedule(int userID, ArrayList<String> location, ArrayList<Date> dates, ArrayList<String> city, ArrayList<String> placeID, ArrayList<String> weather, SimpleDateFormat format) {
+    public Schedule(int userID, ArrayList<String> location, ArrayList<Date> dates, ArrayList<String> city, ArrayList<String> placeID, ArrayList<String> weather) {
         this.userID = userID;
         this.location = location;
         this.dates = dates;
         this.city = city;
         this.placeID = placeID;
         this.weather = weather;
-        this.format = format;
     }
 
     public int getUserID() {
@@ -76,12 +73,17 @@ public class Schedule {
         this.weather = weather;
     }
 
-    public SimpleDateFormat getFormat() {
-        return format;
-    }
 
-    public void setFormat(SimpleDateFormat format) {
-        this.format = format;
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "userID=" + userID +
+                ", location=" + location +
+                ", dates=" + dates +
+                ", city=" + city +
+                ", placeID=" + placeID +
+                ", weather=" + weather +
+                '}';
     }
 }
 

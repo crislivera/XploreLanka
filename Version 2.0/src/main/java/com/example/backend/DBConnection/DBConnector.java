@@ -301,10 +301,34 @@ public class DBConnector {
     }
 
 
-    public Boolean saveSchedule(ArrayList<Schedule> schedule) {
-
+    public Boolean saveSchedule(Schedule schedule) {
+        System.out.println(schedule);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        return null;
+        PreparedStatement statement = null;
+
+        try{
+            for(int i = 0; i < schedule.getLocation().size(); i++){
+                statement = connection.prepareStatement("insert into schedule values (?,?,?,?,?,?)");
+
+                statement.setInt(1, schedule.getUserID());
+                statement.setString(2, schedule.getLocation().get(i));
+                java.sql.Date date = new java.sql.Date(schedule.getDates().get(i).getTime());
+                statement.setDate(3, date);
+                statement.setString(4, schedule.getCity().get(i));
+                statement.setString(5, schedule.getPlaceID().get(i));
+                statement.setString(6, schedule.getWeather().get(i));
+                statement.execute();
+            }
+
+
+            System.out.println("[SERVER] " + timestamp + " - Successfully added a schedule: " + schedule);
+            return true;
+
+        }catch (Exception ex) {
+
+            System.out.println("[SERVER] " + timestamp + " - Error in adding a schedule : " + ex);
+            return false;
+        }
     }
 
     public ArrayList<Schedule> getSchedule(String id) {

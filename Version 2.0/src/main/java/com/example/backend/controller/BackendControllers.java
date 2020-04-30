@@ -61,7 +61,7 @@ public class BackendControllers {
     }
 
     //connect API and database to save a new schedule
-    public Boolean saveSchedule(ArrayList<Schedule> schedule) {
+    public Boolean saveSchedule(Schedule schedule) {
         return connector.saveSchedule(schedule);
     }
 

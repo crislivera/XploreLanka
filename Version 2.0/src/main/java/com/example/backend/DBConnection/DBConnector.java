@@ -2,9 +2,11 @@ package com.example.backend.DBConnection;
 
 
 import com.example.backend.Models.*;
+import com.example.backend.Recovery.Recover;
 import com.example.backend.userVerification.VerifyByMail;
 import com.example.backend.userVerification.VerifyBySMS;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -425,6 +427,65 @@ public class DBConnector {
         }
         return placeID;
 
+    }
+
+    // recover password method
+    public Boolean recoverPassword(String username) throws SQLException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        query = "SELECT * " + "FROM user";
+        resultSet = statement.executeQuery(query);
+        User obj = new User();
+        String mobileNo = null;
+        String email = null;
+        String name = null;
+        int userId =0;
+        while (resultSet.next()){
+            if (username.equals(resultSet.getString("username"))){
+                userId = resultSet.getInt("userID");
+                name = resultSet.getString("fname") + "+" + resultSet.getString("lname");
+                mobileNo = resultSet.getString("contact");
+                email = resultSet.getString("email");
+            }
+        }
+
+        if (name==null){
+            System.out.println("[SERVER] " + timestamp + " - Username not found: " + username);
+            return false;
+        }
+
+        Recover recover = new Recover();
+        recover.generateOTP();
+        System.out.println("[SERVER] " + timestamp + " - OTP generated: " + recover.getOTP());
+
+        try {
+            recover.sendMessage(mobileNo, name);
+        }catch (IOException ex){
+            System.out.println("[SERVER] " + timestamp + " - error in sending recovery SMS: " + ex);
+            return false;
+        }
+
+        if(recover.verifyMail(email,name)){
+            System.out.println("[SERVER] " + timestamp + " - Success in sending recovery email" );
+        }else {
+            System.out.println("[SERVER] " + timestamp + " - error in sending recovery Email " );
+            return false;
+        }
+
+        timestamp = new Timestamp(System.currentTimeMillis());
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement("insert into recoverUser values (?,?,?)");
+            statement.setString(1, null);
+            statement.setString(2, username);
+            statement.setInt(3, userId);
+            statement.execute();
+            System.out.println("[SERVER] " + timestamp + " - Successfully added recovery: ");
+        } catch (SQLException ex) {
+            System.out.println("[SERVER] " + timestamp + " - Error in recovering : " + ex.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
 }

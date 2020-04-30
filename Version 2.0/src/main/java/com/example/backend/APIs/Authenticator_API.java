@@ -60,4 +60,11 @@ public class Authenticator_API {
     public boolean verifyUser(@RequestBody User user) throws SQLException {
         return controller.verifyUser(user);
     }
+
+    // check if username exists if password forgets
+    @GetMapping("/checkUser")
+    @ResponseBody
+    public Boolean checkUser(@RequestParam String username) throws SQLException {
+        return controller.recover(username);
+    }
 }

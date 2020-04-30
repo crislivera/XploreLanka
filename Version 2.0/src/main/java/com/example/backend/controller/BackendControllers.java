@@ -89,4 +89,9 @@ public class BackendControllers {
     public String getPlace(String id) throws SQLException {
         return connector.getPlace(id);
     }
+
+    //recover password controller
+    public Boolean recover(String username) throws SQLException {
+        return connector.recoverPassword(username);
+    }
 }

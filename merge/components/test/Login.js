@@ -99,10 +99,10 @@ export default class Login extends React.Component {
           <TouchableOpacity 
               style={styles.forgotPassword}
               onPress={() => this.props.navigation.navigate('ForgotPassword')}>
-              <Text style={styles.buttonText}>Forgot password?</Text>
+              <Text style={styles.forgotPasswordText}>Forgot password?</Text>
           </TouchableOpacity>
 
-          <Text style={styles.buttonText}
+          <Text style={styles.signupText}
             onPress={() => this.props.navigation.navigate('Signup')}>
             Don't have an account? Signup
           </Text>
@@ -169,14 +169,14 @@ const styles = StyleSheet.create({
     backgroundColor:'transparent'
   },
   forgotPassword: {
-    height:15,
+    height:35,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop:10,
-    marginBottom:30,
+    marginBottom:20,
     width:300,
-   
+  
   },
   loginButton: {
     backgroundColor: "#ac00e6",
@@ -192,11 +192,16 @@ const styles = StyleSheet.create({
   loginText: {
     color: 'white',
     fontWeight:'bold',
+    fontSize:17,
   },
-  buttonText:{
+  forgotPasswordText:{
     color:"#ac00e6",
     fontSize:17,
-  
-  
+    fontWeight:'bold',
+  },
+  signupText:{
+    color:"#ac00e6",
+    fontSize:18,
+    fontWeight:'bold',
   }
 }); 

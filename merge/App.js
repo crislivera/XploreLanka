@@ -20,7 +20,6 @@ import Login from './components/test/Login';
 import AccountScreen from './components/test/AccountScreen';
 import Notifications from './components/test/Notifications';
 import About from './components/test/About';
-import Logout from './components/test/Logout';
 import Signup from './components/test/Signup';
 import ForgotPassword from './components/test/ForgotPassword';
 import OtpScreen from './components/test/OtpScreen';
@@ -176,7 +175,7 @@ const HomeStackNavigator = ({navigation,route})=>{
   }
   return(
   <HomeStack.Navigator>
-    <HomeStack.Screen name="Home" component={HomeScreen}/>
+    <HomeStack.Screen options={{header: () => null}} name="Home" component={HomeScreen}/>
     <HomeStack.Screen name="Details" component={DetailsScreen}/>
     {/* <HomeStack.Screen name="Login" component={LoginScreen}/> */}
   </HomeStack.Navigator>
@@ -267,7 +266,7 @@ const SettingsNavigator =({navigation,route})=>{
     <SettingsStack.Screen name="AccountScreen" component={AccountScreen} options={{ title: 'Welcome'}}/> 
     <SettingsStack.Screen name="Notifications" component={Notifications} />
     <SettingsStack.Screen name="About" component={About} options={{ title: 'About'}}/>
-    <SettingsStack.Screen name="Logout" component={Logout} options={{ title: 'Logout'}}/> 
+    
   </SettingsStack.Navigator>
   );
 };

@@ -25,7 +25,7 @@ _Used to quickly and easily send REST requests directly within Postman to the Ba
 _SMS Gateway to send and receive text messages_
 
 - [JavaMail API](https://javaee.github.io/javamail/)<br>
-_he JavaMail API provides a platform-independent and protocol-independent framework to build mail and messaging applications. The JavaMail API is available as an optional package for use with the Java SE platform and is also included in the Java EE platform._
+_The JavaMail API provides a platform-independent and protocol-independent framework to build mail and messaging applications. The JavaMail API is available as an optional package for use with the Java SE platform and is also included in the Java EE platform._
 ```
         <dependencies>
             <dependency>

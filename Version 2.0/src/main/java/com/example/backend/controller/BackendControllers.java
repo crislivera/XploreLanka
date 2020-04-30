@@ -66,7 +66,7 @@ public class BackendControllers {
     }
 
     //connect API and database to return existing schedules
-    public Schedule getSchedule(String id) throws SQLException {
+    public Schedule getSchedule(Integer id) throws SQLException {
         return connector.getSchedule(id);
     }
 

@@ -29,7 +29,7 @@ public class User_API {
     //return existing plan
     @GetMapping("/getSchedule")
     @ResponseBody
-    public Schedule getSchedule(@RequestParam String  id) throws SQLException {
+    public Schedule getSchedule(@RequestParam Integer  id) throws SQLException {
         return controller.getSchedule(id);
     }
 

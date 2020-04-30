@@ -334,24 +334,26 @@ public class DBConnector {
     }
 
     //return all existing schedules according to user id
-    public Schedule getSchedule(String id) throws SQLException {
+    public Schedule getSchedule(Integer id) throws SQLException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         query = "SELECT * " + "FROM schedule";
         resultSet = statement.executeQuery(query);
 
-        Schedule schedule = new Schedule();
+        Schedule schedule = new Schedule(id);
 
-        while (resultSet.next()) {
-            if (resultSet.getInt("userID")==Integer.parseInt(id)) {
-                schedule.addLocation(resultSet.getString("location"));
-                java.sql.Date date = resultSet.getDate("date");
-                schedule.addDates(new java.sql.Date(date.getTime()));
-                schedule.addCity(resultSet.getString("city"));
-                schedule.addPlaceID(resultSet.getString("placeID"));
-                schedule.addWeather(resultSet.getString("weather"));
-                System.out.println(schedule);
-                System.out.println(date);
+        try {
+            while (resultSet.next()) {
+                if (id == resultSet.getInt("userID")) {
+                    schedule.addCity(resultSet.getString("city"));
+                    java.sql.Date date = resultSet.getDate("date");
+                    schedule.addDates(new java.util.Date(date.getTime()));
+                    schedule.addLocation(resultSet.getString("location"));
+                    schedule.addPlaceID(resultSet.getString("placeID"));
+                    schedule.addWeather(resultSet.getString("weather"));
+                }
             }
+        }catch (Exception ex){
+            System.out.println(ex);
         }
         return schedule;
     }
@@ -468,7 +470,7 @@ public class DBConnector {
             System.out.println("[SERVER] " + timestamp + " - Success in sending recovery email" );
         }else {
             System.out.println("[SERVER] " + timestamp + " - error in sending recovery Email " );
-            return false;
+//            return false;    // Online daddi awul yana nisa meheme comment kere
         }
 
         timestamp = new Timestamp(System.currentTimeMillis());

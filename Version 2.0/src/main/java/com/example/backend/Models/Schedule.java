@@ -26,8 +26,13 @@ public class Schedule {
     }
 
     //This comes while returning stored schedules
-    public Schedule() {
-
+    public Schedule(Integer id) {
+        this.userID = id;
+        dates = new ArrayList<>();
+        location = new ArrayList<>();
+        placeID = new ArrayList<>();
+        city = new ArrayList<>();
+        weather = new ArrayList<>();
     }
 
     public int getUserID() {

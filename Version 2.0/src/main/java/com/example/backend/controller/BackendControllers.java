@@ -71,7 +71,7 @@ public class BackendControllers {
     }
 
     //connect API and database to add and delete an existing schedule
-    public Boolean editSchedule(Schedule schedule) {
+    public Boolean editSchedule(Schedule schedule) throws SQLException {
         return connector.editSchedule(schedule);
     }
 

@@ -355,9 +355,14 @@ public class DBConnector {
     }
 
     //edit the existing schedule in database
-    public Boolean editSchedule(Schedule schedule) {
+    public Boolean editSchedule(Schedule schedule) throws SQLException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        deleteSchedule(String.valueOf(schedule.getUserID()));
+        saveSchedule(schedule);
+        System.out.println("[SERVER] " + timestamp + " - Successfully Edited ");
         return null;
+        
     }
 
     //delete a schedule from database
@@ -416,7 +421,7 @@ public class DBConnector {
             statement.execute();
             System.out.println("[SERVER] " + timestamp + " - Successfully Deleted id: " + id);
         } catch (Exception ex) {
-            System.out.println("[SERVER] " + timestamp + " - Error in deleting admin : " + ex.getMessage());
+            System.out.println("[SERVER] " + timestamp + " - Error in deleting : " + ex.getMessage());
         }
         return placeID;
 

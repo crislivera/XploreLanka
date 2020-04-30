@@ -1,7 +1,7 @@
 package com.example.backend.APIs;
 
 import com.example.backend.Models.PlaceSession;
-import com.example.backend.Models.Trip;
+import com.example.backend.Models.Schedule;
 import com.example.backend.Models.User;
 import com.example.backend.controller.BackendControllers;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +22,7 @@ public class User_API {
     // totally new plan
     @PostMapping("/saveSchedule")
     @ResponseBody
-    public Boolean saveSchedule(@RequestBody ArrayList<Trip> schedule) throws SQLException {
+    public Boolean saveSchedule(@RequestBody ArrayList<Schedule> schedule) throws SQLException {
         System.out.println(schedule);
         return controller.saveSchedule(schedule);
     }
@@ -30,7 +30,7 @@ public class User_API {
     //return existing plan
     @PostMapping("/getSchedule")
     @ResponseBody
-    public ArrayList<Trip> getSchedule(@RequestParam String  id) throws SQLException {
+    public ArrayList<Schedule> getSchedule(@RequestParam String  id) throws SQLException {
         return controller.getSchedule(id);
     }
 
@@ -38,7 +38,7 @@ public class User_API {
     //delete all existing once from user ID and replace with new ones
     @PostMapping("/editSchedule")
     @ResponseBody
-    public Boolean editSchedule(@RequestBody ArrayList<Trip> schedule) throws SQLException {
+    public Boolean editSchedule(@RequestBody ArrayList<Schedule> schedule) throws SQLException {
         return controller.editSchedule(schedule);
     }
 
@@ -65,19 +65,7 @@ public class User_API {
         return controller.updateUser(user);
     }
 
-    @GetMapping("/testing")
-    @ResponseBody
-    public ArrayList<Trip> testing() throws ParseException {
-        ArrayList<Trip> tripList = new ArrayList<Trip>();
 
-        Trip trip1 = new Trip(1, "Mathara", "P1", "Mathara","Sunny","2020-05-23");
-        Trip trip2 = new Trip(1, "Galle", "P2", "Galle","Rainy","2020-05-30");
-
-        tripList.add(trip1);
-        tripList.add(trip2);
-
-        return tripList;
-    }
 
     //get the session object from frontend and save it temporarily in database
     @PostMapping("/setPlace")

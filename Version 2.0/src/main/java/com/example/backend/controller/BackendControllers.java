@@ -61,17 +61,17 @@ public class BackendControllers {
     }
 
     //connect API and database to save a new schedule
-    public Boolean saveSchedule(ArrayList<Trip> schedule) {
+    public Boolean saveSchedule(ArrayList<Schedule> schedule) {
         return connector.saveSchedule(schedule);
     }
 
     //connect API and database to return an existing schedule
-    public ArrayList<Trip> getSchedule(String id) {
+    public ArrayList<Schedule> getSchedule(String id) {
         return connector.getSchedule(id);
     }
 
     //connect API and database to add and delete an existing schedule
-    public Boolean editSchedule(ArrayList<Trip> schedule) {
+    public Boolean editSchedule(ArrayList<Schedule> schedule) {
         return connector.editSchedule(schedule);
     }
 

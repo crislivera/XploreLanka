@@ -301,44 +301,18 @@ public class DBConnector {
     }
 
 
-    public Boolean saveSchedule(ArrayList<Trip> schedule) {
+    public Boolean saveSchedule(ArrayList<Schedule> schedule) {
 
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        PreparedStatement statement = null;
-
-        try {
-            for(int i = 0; i < schedule.size(); i++){
-            Trip trip = schedule.get(i);
-
-            statement = connection.prepareStatement("insert into Trips values (?,?,?,?,?,?,?)");
-            statement.setInt(1, trip.getTripID());
-            statement.setInt(2, trip.getUserID());
-            statement.setString(3, trip.getLocationName());
-            statement.setString(4, trip.getPlaceID());
-            statement.setString(5, trip.getCity());
-            statement.setString(6, trip.getWeather());
-            statement.setDate(7, (Date) trip.getDate());
-            statement.execute();
-
-            System.out.println("[SERVER] " + timestamp + " - Successfully added a trip: " + trip);
-
-            }
-
-            return true;
-
-        }catch (SQLException ex) {
-
-            System.out.println("[SERVER] " + timestamp + " - Error in adding a trip : " + ex.getMessage());
-            return false;
-        }
-    }
-
-    public ArrayList<Trip> getSchedule(String id) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return null;
     }
 
-    public Boolean editSchedule(ArrayList<Trip> schedule) {
+    public ArrayList<Schedule> getSchedule(String id) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return null;
+    }
+
+    public Boolean editSchedule(ArrayList<Schedule> schedule) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return null;
     }

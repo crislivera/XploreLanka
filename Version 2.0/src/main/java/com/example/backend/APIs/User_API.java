@@ -27,9 +27,9 @@ public class User_API {
     }
 
     //return existing plan
-    @PostMapping("/getSchedule")
+    @GetMapping("/getSchedule")
     @ResponseBody
-    public ArrayList<Schedule> getSchedule(@RequestParam String  id) throws SQLException {
+    public Schedule getSchedule(@RequestParam String  id) throws SQLException {
         return controller.getSchedule(id);
     }
 
@@ -37,12 +37,12 @@ public class User_API {
     //delete all existing once from user ID and replace with new ones
     @PostMapping("/editSchedule")
     @ResponseBody
-    public Boolean editSchedule(@RequestBody ArrayList<Schedule> schedule) throws SQLException {
+    public Boolean editSchedule(@RequestBody Schedule schedule) throws SQLException {
         return controller.editSchedule(schedule);
     }
 
     // totally delete a schedule according to user id
-    @PostMapping("/deleteSchedule")
+    @GetMapping("/deleteSchedule")
     @ResponseBody
     public Boolean deleteSchedule(@RequestParam String  id) throws SQLException {
         return controller.deleteSchedule(id);

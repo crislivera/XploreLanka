@@ -300,7 +300,7 @@ public class DBConnector {
         return user;
     }
 
-
+    //return true if user added a schedule successfully
     public Boolean saveSchedule(Schedule schedule) {
         System.out.println(schedule);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -331,19 +331,51 @@ public class DBConnector {
         }
     }
 
-    public ArrayList<Schedule> getSchedule(String id) {
+    //return all existing schedules according to user id
+    public Schedule getSchedule(String id) throws SQLException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        query = "SELECT * " + "FROM schedule";
+        resultSet = statement.executeQuery(query);
+
+        Schedule schedule = new Schedule();
+
+        while (resultSet.next()) {
+            if (resultSet.getInt("userID")==Integer.parseInt(id)) {
+                schedule.addLocation(resultSet.getString("location"));
+                java.sql.Date date = resultSet.getDate("date");
+                schedule.addDates(new java.sql.Date(date.getTime()));
+                schedule.addCity(resultSet.getString("city"));
+                schedule.addPlaceID(resultSet.getString("placeID"));
+                schedule.addWeather(resultSet.getString("weather"));
+                System.out.println(schedule);
+                System.out.println(date);
+            }
+        }
+        return schedule;
+    }
+
+    //edit the existing schedule in database
+    public Boolean editSchedule(Schedule schedule) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return null;
     }
 
-    public Boolean editSchedule(ArrayList<Schedule> schedule) {
+    //delete a schedule from database
+    public Boolean deleteSchedule(String id) throws SQLException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        return null;
-    }
+        PreparedStatement statement = null;
 
-    public Boolean deleteSchedule(String id) {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        return null;
+        try{
+            statement = connection.prepareStatement("Delete from schedule Where userID = ?");
+            statement.setInt(1, Integer.parseInt(id));
+            statement.execute();
+            System.out.println("[SERVER] " + timestamp + " - Successfully Deleted ");
+            return true;
+        }
+        catch(Exception ex){
+            System.out.println("[SERVER] " + timestamp + " - Error in deleting admin : " + ex.getMessage());
+            return false;
+        }
     }
 
     //temporarily saved in database

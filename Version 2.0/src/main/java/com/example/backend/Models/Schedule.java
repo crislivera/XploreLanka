@@ -1,8 +1,8 @@
 package com.example.backend.Models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
 public class Schedule {
 
@@ -15,7 +15,7 @@ public class Schedule {
 
     SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
 
-    // This comes when data comes from frontend to be saved and while returning stored schedules
+    // This comes when data comes from frontend to be saved
     public Schedule(int userID, ArrayList<String> location, ArrayList<Date> dates, ArrayList<String> city, ArrayList<String> placeID, ArrayList<String> weather) {
         this.userID = userID;
         this.location = location;
@@ -23,6 +23,11 @@ public class Schedule {
         this.city = city;
         this.placeID = placeID;
         this.weather = weather;
+    }
+
+    //This comes while returning stored schedules
+    public Schedule() {
+
     }
 
     public int getUserID() {
@@ -73,6 +78,25 @@ public class Schedule {
         this.weather = weather;
     }
 
+    public void addLocation(String location){
+        this.location.add(location);
+    }
+
+    public void addDates(Date dates){
+        this.dates.add(dates);
+    }
+
+    public void addCity(String city){
+        this.city.add(city);
+    }
+
+    public void addPlaceID(String placeID){
+        this.placeID.add(placeID);
+    }
+
+    public void addWeather(String weather){
+        this.weather.add(weather);
+    }
 
     @Override
     public String toString() {

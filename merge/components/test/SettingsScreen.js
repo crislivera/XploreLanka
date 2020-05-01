@@ -1,12 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,Image } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 
 export default function SettingsScreen({navigation}) {
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+    <View style={styles.container}>
+    <ScrollView style={styles.contentContainer}>
     <OptionButton
         icon="md-person"
         label="Account"
@@ -28,19 +29,30 @@ export default function SettingsScreen({navigation}) {
       <OptionButton
         icon="ios-log-out"
         label="Logout"
-        onPress={ ()=> navigation.navigate('Logout')}
+        onPress={()=> Logout(this)}
         isLastOption
       />
+      </ScrollView>
 
       <View style={styles.tabBarInfoContainer}>
         <Text style={styles.tabBarInfoText}>From</Text>
         <View style={styles.infoTextContainer}>
-          <Text style={styles.infoText}>Informates</Text>
+          {/* <Text style={styles.infoText}>Informates</Text> */}
+          <View style={styles.logoContainer}>
+                <Image
+                  style = {styles.logo}
+                  source={require('../../assets/logo_transparent.png')}>
+                </Image>
+              </View> 
         </View>
       </View>
-   
-    </ScrollView>
+   </View>
+    
   );
+}
+
+function Logout(){
+  alert('logout')
 }
 
 function OptionButton({ icon, label, onPress, isLastOption }) {
@@ -61,10 +73,11 @@ function OptionButton({ icon, label, onPress, isLastOption }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+   
   },
   contentContainer: {
     paddingTop: 15,
+   
   },
   optionIconContainer: {
     marginRight: 20,
@@ -103,20 +116,31 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
         shadowRadius: 1,
-        marginTop:260
       },
       android: {
         elevation: 5,
-        marginTop:243,
+     
       },
     }),
     paddingVertical: 20,
     paddingLeft:25,
   },
   tabBarInfoText: {
-    fontSize: 15,
+    fontSize: 12,
     color: 'rgba(96,100,109, 1)',
     textAlign: 'left',
     paddingLeft:5,
   },
+  logo:{
+    width:150,
+    height:70,
+    justifyContent: 'center',
+   
+  },
+  logoContainer:{
+   alignItems: 'flex-start',
+    flexGrow:1,
+    justifyContent:'center', 
+    backgroundColor:'red'
+  }
 });

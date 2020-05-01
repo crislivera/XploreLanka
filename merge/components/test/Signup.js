@@ -35,17 +35,14 @@ export default class Signup extends React.Component {
 
   contactValidator=(value) =>{
 
-    const num = /^\d{11}$/;
-    if (num.test(value) === false) {
-      alert("Your mobile number is invalid")
-      return false
+    if (isNaN(value)) {
+      Alert.alert('Enter a valid contact number');
     } else {
       this.setState({
         contact: value,
-        
       });
-      return true;
-    }  
+      console.log('Contact number is valid');
+    }
   }
     
     signupUser = () => {
@@ -83,7 +80,7 @@ export default class Signup extends React.Component {
                 var result = JSON.stringify(response.data)
                 if(result=="true"){
                   console.log('User registered successfully!')
-                  alert('Registered successfully!');
+                  alert('Registered successfully! You will get a code via SMS for verification');
                   this.props.navigation.navigate("OtpScreen",{
                     fName:this.state.fName,
                     lName:this.state.lName,
@@ -104,8 +101,6 @@ export default class Signup extends React.Component {
           } 
         }  
       }      
-
-      
   
     
     render() {   
@@ -143,10 +138,9 @@ export default class Signup extends React.Component {
           />  
           <TextInput
             style={styles.input}
-            placeholder="Mobile number - (with your country code)"
+            placeholder="Mobile number[Country Code][Area Code][Phone Num]"
             keyboardType="phone-pad"
             maxLength={11}
-            underlineColorAndroid='transparent'
             value={this.state.contact}
             onChangeText={(contact) => this.setState({contact})} 
           />    
@@ -155,10 +149,9 @@ export default class Signup extends React.Component {
             autoCapitalize="none"
             placeholder="Email"
             keyboardType="email-address"
-           // onBlur={()=> this.emailValidator()}
             value={this.state.email}
             onChangeText={(email) => this.setState({email})}
-          //  onChangeText={(email) => this.emailValidator({email})} 
+      
           />
 
           <TextInput
@@ -192,11 +185,11 @@ export default class Signup extends React.Component {
             <Text style={styles.signupText}>SIGNUP</Text>
           </TouchableOpacity>
   
-          <Text 
-            style={styles.loginText}
-            onPress={() => this.props.navigation.navigate('Login')}>
-            Already Registered? Click here to Login
-          </Text>
+          <TouchableOpacity 
+              style={styles.login}
+              onPress={() => this.props.navigation.navigate('Login')}>
+              <Text style={styles.loginText}>Already Registered? Click here to Login</Text>
+          </TouchableOpacity>
                                    
         </View>
         </ScrollView>
@@ -223,8 +216,7 @@ const styles = StyleSheet.create({
     logoContainer:{
       alignItems: 'center',
       flexGrow:1,
-      justifyContent:'center',
-     
+      justifyContent:'center',  
     },
 
     input: {
@@ -277,12 +269,22 @@ const styles = StyleSheet.create({
       color: 'white',
       fontWeight:'bold',
     },
+    login: {
+      height:35,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop:10,
+      marginBottom:20,
+    },
+
     loginText: {
       color: '#ac00e6',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
       marginHorizontal:20,
-      fontSize:17
+      fontSize:17,
+      fontWeight:'bold',
     }
   });

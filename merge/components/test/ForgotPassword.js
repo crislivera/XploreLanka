@@ -1,78 +1,70 @@
 import * as React from 'react';
-import { Text, SafeAreaView, View, StyleSheet,TextInput,TouchableOpacity,Alert} from 'react-native'
+import { Text, View, StyleSheet,TextInput,TouchableOpacity,AsyncStorage} from 'react-native'
+import axios from 'axios';
 
 export default class ForgotPassword extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      username: '',
     }
   }
 
-  handleEmail = (val, prop) => {
-    if(prop=='email'){
-      this.setState({
-        email:val
-      })
-    }
-  }
-
-  sendEmail = async () => {
-
-    email =this.state.email;
+  sendUsername =() => {
     
-    try {
-      if(this.state.email== '') {
-        Alert.alert(Alert,'Please enter your email!')
-      } 
-      else {
-        fetch('http://localhost:3000/users',{
-          method:'POST',
-          headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-         body: JSON.stringify({email})
+    const data = {username : this.state.username}
+    AsyncStorage.setItem('username',this.state.username)
+    console.log(data);
+
+    if(this.state.username == '') {
+      alert('Please enter your username!')
+    } 
+    else {
+      try {
+        axios.get('https://xplorelanka.herokuapp.com/checkUser?username',data) 
+        .then(response=>{
+          console.log(data);
+          console.log(response)
+          var result = JSON.stringify(response.data)
+          if(result=="true"){
+            console.log('Username is correct!')
+            console.log('Link has been sent to your username successfully')
+            alert('Sent a link to you via SMS and E-mail');
+            console.log('Link has been sent to your username successfully')
+            this.props.navigation.goBack("Login")
+            }else{
+              alert('Invalid username . Please try again');
+            }
        })
-       .then((response)=> response.json())
-       .then((res)=>{
-         if(res.success === true){
-          console.log('Password reset email sent successfully')
-           this.setState({
-               email: '', 
-           })
-           this.props.navigate.navigate('Login');
-         }
-         else{
-           Alert.alert(Alert,'Invalid email ');
-         }
-       })
+      } catch (error) {
+        console.log(error)
       }
-    }catch (error) {
-        error => this.setState({ errorMessage: error.message })
-    }      
+    }
   }  
+  
     render() {
         return (
           <View style={styles.container}>
             <View style={styles.formContainer}>
             <Text style={styles.text}>Forgot Your Password?</Text>
-            <Text style={styles.text2}>Enter your e-mail address and we will send you a link to reset your password</Text>
+
+            <Text style={styles.text2}>Enter your username and we will send you a link via SMS or E-mail to reset your password</Text>
               <TextInput
                 style={styles.input}
-                name='email'
-                value={this.state.email}
-                onChangeText={(value) => this.handleEmail(value, 'email')}
-                placeholder='Enter your email'
+                name='username'
+                placeholder='Enter your username'
                 autoCapitalize='none'
-                keyboardType="email-address"
+                keyboardType="default"
+                value={this.state.username}
+                onChangeText={(username) => this.setState({username})}
               />  
 
               <TouchableOpacity style={[styles.buttonContainer,styles.sendButton]} 
-                onPress={() => this.sendEmail()}>
+                onPress={() => this.sendUsername()}>
                 <Text style={styles.btnText}>SEND</Text>
               </TouchableOpacity>
+              
              </View>
           </View>
         )
@@ -83,9 +75,8 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       display: "flex",
-      flexDirection: "column",
+      flexDirection: "row",
       backgroundColor: '#fff',
-      
     },
     formContainer:{
       alignItems: 'center',
@@ -93,12 +84,14 @@ const styles = StyleSheet.create({
       margin:40
     },
     text: {
-      fontSize: 22,
+      fontSize: 23,
       margin:30,
-      color:'#9E00D3',
+      marginBottom:50,
+      color:'#1c39bb',
       justifyContent:'center',
       fontWeight:'bold'
     },
+    
     input: {
       width: '100%',
       marginLeft:15,
@@ -121,12 +114,12 @@ const styles = StyleSheet.create({
       marginTop:30,
       width:300,    
       borderWidth: 1,
-      borderRadius:30,
+     // borderRadius:30,
       backgroundColor:'transparent',
-      borderColor:"#9E00D3"
+      borderColor:"#1c39bb"
     },
     sendButton: {
-      backgroundColor: "#fff",
+      backgroundColor: "#1c39bb",
       shadowColor: "#808080",
       shadowOffset: {
         width: 0,
@@ -138,13 +131,13 @@ const styles = StyleSheet.create({
     },
     
     text2: { 
-      marginBottom:10,
+      marginBottom:20,
       fontSize: 16,
       justifyContent:'center',
     },
     btnText: { 
       alignItems:'center',
-      color:'#9E00D3',
+      color:'#fff',
       fontWeight:'bold'
     },
     

@@ -1,65 +1,74 @@
 import * as React from 'react';
 import { StyleSheet,Text,View,TextInput,TouchableOpacity,Image,Alert,AsyncStorage,SafeAreaView} from 'react-native';
-
+import axios from 'axios';
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: '',
+      pwd: '',
     }
   }
 
-  updateValue = (val, prop) => {
-    if(prop=='username'){
-      this.setState({
-        username:val
-      })
+  login = () =>{
+    const data = {
+     username:this.state.username,
+     pwd:this.state.pwd
     }
-    else if(prop=='password'){
-      this.setState({
-        password:val
-      })
-    }
-    
-  }
 
-  login = async() =>{
+    AsyncStorage.setItem('username',this.state.username)
+    AsyncStorage.setItem('pwd',this.state.pwd)
 
-    let loginDetails={}
-    loginDetails.username=this.state.username,
-    loginDetails.password=this.state.password
-        
-    try {
-      if(this.state.username == '' || this.state.password == '') {
-        Alert.alert(Alert,'Please fill all the fields!')
-      } 
-      else {
-        fetch('http://localhost:3000/users',{
-          method:'POST',
-          headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-         body: JSON.stringify({loginDetails})
-       })
-       .then((response)=> response.json())
-       .then((res)=>{
-         if(res.success === true){
-          console.log('User logged-in successfully!')
-           AsyncStorage.setItem('username',res.user);
-           this.props.navigation.navigate('Plan');
-         }
-         else{
-           Alert.alert(Alert,'Invalid user details');
-         }
-       })
+    console.log(data)
+
+    if(this.state.username == '' || this.state.pwd == '') {
+      Alert.alert(alert,'Please fill all the fields!');
+    } 
+    else {
+      try {
+        axios.post('https://xplorelanka.herokuapp.com/signInUser',data) 
+        .then((response)=>{
+          console.log(response)
+          console.log(JSON.stringify(response.data.username))
+          var username = response.data.username
+          var password = response.data.password
+          var verify = JSON.stringify(response.data.verify)
+          console.log(this.state.username)
+          console.log(this.state.pwd)
+          if(username == this.state.username && password == this.state.pwd  && verify =="true"){
+            console.log('User logged-in successfully!')
+            this.props.navigation.navigate("Plan")
+
+          }else if(username==this.state.username && password==this.state.pwd  && verify =="false"){
+            Alert.alert('You need to verify your account');
+
+            AsyncStorage.setItem('fName',response.data.fName)
+            AsyncStorage.setItem('lName',response.data.lName)
+            AsyncStorage.setItem('address',response.data.address)
+            AsyncStorage.setItem('contact',response.data.contact)
+            AsyncStorage.setItem('email',response.data.email)
+            AsyncStorage.setItem('username',response.data.username)
+            AsyncStorage.setItem('pwd',response.data.password)
+
+            this.props.navigation.navigate("OtpScreen",{
+              fName:this.state.fName,
+              lName:this.state.lName,
+              address:this.state.address,
+              contact:this.state.contact,
+              email:this.state.email,
+              username:this.state.username,
+              pwd:this.state.pwd
+            })
+          }else {
+            Alert.alert('Invalid user details. Try again');
+          }
+         })
+      } catch (error) {
+          console.log("error")
       }
-    }catch (error) {
-        error => this.setState({ errorMessage: error.message })
-    }      
-  }  
+    }
+  }
 
   render() {
     return (
@@ -78,7 +87,7 @@ export default class Login extends React.Component {
                 keyboardType="default"
                 underlineColorAndroid='transparent'
                 value={this.state.username}
-                onChangeText={(value) => this.updateValue(value, 'username')}/>
+                onChangeText={(username) => this.setState({username})}/>
           </View>
         
           <View style={styles.inputContainer}>
@@ -86,8 +95,8 @@ export default class Login extends React.Component {
                 placeholder="Password"
                 secureTextEntry={true}
                 underlineColorAndroid='transparent'
-                value={this.state.password}
-                onChangeText={(value) => this.updateValue(value, 'password')}/>
+                value={this.state.pwd}
+                onChangeText={(pwd) => this.setState({pwd})}/>
           </View>
 
           <TouchableOpacity
@@ -102,10 +111,12 @@ export default class Login extends React.Component {
               <Text style={styles.forgotPasswordText}>Forgot password?</Text>
           </TouchableOpacity>
 
-          <Text style={styles.signupText}
-            onPress={() => this.props.navigation.navigate('Signup')}>
-            Don't have an account? Signup
-          </Text>
+          <TouchableOpacity 
+              style={styles.signup}
+              onPress={() => this.props.navigation.navigate('Signup')}>
+              <Text style={styles.signupText}>Don't have an account? Signup</Text>
+          </TouchableOpacity>
+  
         </View>
       </SafeAreaView>
     );
@@ -131,11 +142,11 @@ const styles = StyleSheet.create({
   formContainer:{
     alignItems: 'center',
     flexGrow:1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#fff',
   },
   inputContainer: {
     borderColor: '#F5FCFF',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#fff',
     width:300,
     height:45,
     marginBottom:20,
@@ -164,20 +175,11 @@ const styles = StyleSheet.create({
     marginTop:10,
     marginBottom:20,
     width:300,
-    borderRadius:30,
+   // borderRadius:30,
     borderColor:"#ac00e6",
     backgroundColor:'transparent'
   },
-  forgotPassword: {
-    height:35,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop:10,
-    marginBottom:20,
-    width:300,
   
-  },
   loginButton: {
     backgroundColor: "#ac00e6",
     shadowColor: "#808080",
@@ -192,12 +194,27 @@ const styles = StyleSheet.create({
   loginText: {
     color: 'white',
     fontWeight:'bold',
-    fontSize:17,
   },
+  forgotPassword: {
+    height:35,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:10,
+    marginBottom:20,
+  },
+
   forgotPasswordText:{
     color:"#ac00e6",
     fontSize:17,
     fontWeight:'bold',
+  },
+  signup: {
+    height:35,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:300,
   },
   signupText:{
     color:"#ac00e6",

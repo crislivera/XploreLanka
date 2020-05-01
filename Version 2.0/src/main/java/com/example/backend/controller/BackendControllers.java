@@ -95,7 +95,8 @@ public class BackendControllers {
         return connector.recoverPassword(username);
     }
 
+    //connect API and database to return predicted data of a city according to date
     public Prediction getPrediction(Prediction prediction) {
-        return  null;
+        return  connector.getPrediction(prediction);
     }
 }

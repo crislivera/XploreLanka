@@ -490,4 +490,7 @@ public class DBConnector {
         return true;
     }
 
+    public Prediction getPrediction(Prediction prediction) {
+        return null;
+    }
 }

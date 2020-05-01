@@ -1,116 +1,113 @@
 import * as React from 'react';
-import { StyleSheet,TouchableOpacity, Image,Text, View, TextInput, Alert, ScrollView } from 'react-native';
+import { StyleSheet,TouchableOpacity, Image,Text, View, TextInput, Alert, ScrollView, AsyncStorage } from 'react-native';
+import axios from 'axios';
 
 export default class Signup extends React.Component {
     constructor(props) {
       super(props);
       this.state = { 
         fName: '',
-        lName:'',
-        address: '',
-        contact:'',
+        lName: '',
+        address:'',
+        contact: '',
         email: '',
-        username:'', 
-        password: '',
-        setVerify: false
+        username: '', 
+        password:''
       }
     }
+
+    emailValidator=(value) =>{
+      console.log(value);
+      var id = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+       if (id.test(value) === false) {
+        console.log("Invalid email");
+        alert("Your email id is invalid")
+        return false
+      }
+      else {
+        this.setState({ email: value })
+        AsyncStorage.setItem('email',this.state.email)
+        console.log("Email is Correct");
+      }
     
-    updateValue = (val, prop) => {
-      if(prop=='fName'){
-        this.setState({
-          fName:val
-        })
-      }
-      else if(prop=='lName'){
-        this.setState({
-          lName:val
-        })
-      }
-      else if(prop=='address'){
-        this.setState({
-          address:val
-        })
-      }
-      else if(prop=='contact'){
-        this.setState({
-          contact:val
-        })
-      }
-      else if(prop=='email'){
-        this.setState({
-          email:val
-        })
-      }
-      else if(prop=='username'){
-        this.setState({
-          username:val
-        })
-      }
-      else if(prop=='password'){
-        this.setState({
-          password:val
-        })
-      }
-      else if(prop=='confirmPassword'){
-        this.setState({
-          confirmPassword:val
-        })
-      }
-    }
+    return true
+  }
 
-    signupUser = async() => {
+  contactValidator=(value) =>{
 
-      let signupDetails={}
-      signupDetails.fName=this.state.fName,
-      signupDetails.lName=this.state.lName,
-      signupDetails.address=this.state.address,
-      signupDetails.contact=this.state.contact,
-      signupDetails.email=this.state.email,
-      signupDetails.username=this.state.username,
-      signupDetails.password=this.state.password
+    const num = /^\d{11}$/;
+    if (num.test(value) === false) {
+      alert("Your mobile number is invalid")
+      return false
+    } else {
+      this.setState({
+        contact: value,
+        
+      });
+      return true;
+    }  
+  }
+    
+    signupUser = () => {
       
+      const data ={
+        fName:this.state.fName,
+        lName:this.state.lName,
+        address:this.state.address,
+        contact:this.state.contact,
+        email:this.state.email,
+        username:this.state.username,
+        password:this.state.password    
+      }
 
-      try {
+      AsyncStorage.setItem('fName',this.state.fName)
+      AsyncStorage.setItem('lName',this.state.lName)
+      AsyncStorage.setItem('address',this.state.address)
+      AsyncStorage.setItem('contact',this.state.contact)
+      AsyncStorage.setItem('email',this.state.email)
+      AsyncStorage.setItem('username',this.state.username)
+      AsyncStorage.setItem('password',this.state.password)
+      console.log(data);
+      
+      
         if(this.state.fName == '' || this.state.lName == '' || this.state.contact == '' || this.state.address == '' || this.state.email == '' || this.state.username == '' || this.state.password == '' || this.state.confirmPassword == '') {
-          Alert.alert(Alert,'Please fill all the fields!')
+          alert('Please fill all the fields!');
         } else {
           if (this.state.password !== this.state.confirmPassword) {
-            Alert.alert(Alert,'Please enter the same password!')
-          } else {
-            fetch('http://localhost:3000/users',{
-              method:'POST',
-              headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({signupDetails})
+            alert('Please enter the same password!');
+          } else if(this.emailValidator(this.state.email) && this.contactValidator(this.state.contact)){
+            try {
+              axios.post('https://xplorelanka.herokuapp.com/signUpUser',data)           
+              .then(response=>{
+                console.log(response)
+                var result = JSON.stringify(response.data)
+                if(result=="true"){
+                  console.log('User registered successfully!')
+                  alert('Registered successfully!');
+                  this.props.navigation.navigate("OtpScreen",{
+                    fName:this.state.fName,
+                    lName:this.state.lName,
+                    address:this.state.address,
+                    contact:this.state.contact,
+                    email:this.state.email,
+                    username:this.state.username,
+                    password:this.state.password
+                  })
+
+                }else{
+                  alert('Registration is unsuccessfull. Please try again');
+                }
               })
-            .then((response)=> response.json())
-            .then((res)=>{
-              if(res.success === true){
-                console.log('User registered successfully!')
-                this.setState({
-                  fName: '',
-                  lName:'',
-                  address: '',
-                  contact:'',
-                  email: '',
-                  username:'', 
-                  password: '',
-                })
-              this.props.navigation.navigate('OtpScreen')
-              }else{
-                  Alert.alert('Registration is unsuccessfull. Please try again');
-              }
-            })
+            } catch (error) { 
+              console.log(error)
+            }
           } 
         }  
-      }catch (error) {
-          error => this.setState({ errorMessage: error.message })
       }      
-    }
+
+      
   
+    
     render() {   
       return (
         <ScrollView>
@@ -128,36 +125,40 @@ export default class Signup extends React.Component {
             placeholder="First Name"
             keyboardType="default"
             value={this.state.fName}
-            onChangeText={(val) => this.updateValue(val,'fName')} 
+            onChangeText={(fName) => this.setState({fName})} 
           />    
           <TextInput
             style={styles.input}
             placeholder="Last Name"
             keyboardType="default"
             value={this.state.lName}
-            onChangeText={(value) => this.updateValue(value, 'lName')}
+            onChangeText={(lName) => this.setState({lName})} 
           />  
           <TextInput
             style={styles.input}
             placeholder="Address"
             keyboardType="default"
             value={this.state.address}
-            onChangeText={(value) => this.updateValue(value, 'address')}
+            onChangeText={(address) => this.setState({address})} 
           />  
           <TextInput
             style={styles.input}
-            placeholder="Contact"
+            placeholder="Mobile number - (with your country code)"
             keyboardType="phone-pad"
+            maxLength={11}
             underlineColorAndroid='transparent'
             value={this.state.contact}
-            onChangeText={(value) => this.updateValue(value, 'contact')}
+            onChangeText={(contact) => this.setState({contact})} 
           />    
           <TextInput
             style={styles.input}
+            autoCapitalize="none"
             placeholder="Email"
             keyboardType="email-address"
+           // onBlur={()=> this.emailValidator()}
             value={this.state.email}
-            onChangeText={(value) => this.updateValue(value, 'email')}
+            onChangeText={(email) => this.setState({email})}
+          //  onChangeText={(email) => this.emailValidator({email})} 
           />
 
           <TextInput
@@ -165,14 +166,14 @@ export default class Signup extends React.Component {
             placeholder="UserName"
             keyboardType="default"
             value={this.state.username}
-            onChangeText={(value) => this.updateValue(value, 'username')}
+            onChangeText={(username) => this.setState({username})} 
           />
 
           <TextInput
             style={styles.input}
             placeholder="Password"
             value={this.state.password}
-            onChangeText={(value) => this.updateValue(value, 'password')}
+            onChangeText={(password) => this.setState({password})} 
             maxLength={50}
             secureTextEntry={true}
           /> 
@@ -181,7 +182,7 @@ export default class Signup extends React.Component {
             style={styles.input}
             placeholder="Confirm Password"
             value={this.state.confirmPassword}
-            onChangeText={(value) => this.updateValue(value, 'confirmPassword')}
+            onChangeText={(confirmPassword) => this.setState({confirmPassword})} 
             maxLength={50}
             secureTextEntry={true}
           />    
@@ -203,8 +204,6 @@ export default class Signup extends React.Component {
     }
   }
 
- 
-  
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -227,7 +226,7 @@ const styles = StyleSheet.create({
       justifyContent:'center',
      
     },
-  
+
     input: {
       width: '100%',
       marginLeft:5,
@@ -260,7 +259,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       margin:20,
       width:300,
-      borderRadius:30,
+    //  borderRadius:30,
       backgroundColor:'transparent'
     },
     signupButton: {
@@ -285,5 +284,5 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginHorizontal:20,
       fontSize:17
-    },
+    }
   });

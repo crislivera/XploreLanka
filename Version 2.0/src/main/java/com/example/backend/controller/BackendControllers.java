@@ -94,4 +94,8 @@ public class BackendControllers {
     public Boolean recover(String username) throws SQLException {
         return connector.recoverPassword(username);
     }
+
+    public Prediction getPrediction(Prediction prediction) {
+        return  null;
+    }
 }

@@ -30,10 +30,11 @@ public class Recover {
         return OTP;
     }
 
-    public void sendMessage(String contactNo, String name) throws IOException {
+    public void sendMessage(String contactNo, String name,Integer userid) throws IOException {
+        String resetURL = "http://174.138.49.104/index.php?userid=" + userid + "&name=" + name ;
         String message = "Hi+" + name +
                 "+Welcome+To+Xplore+Lanka.+" +
-                "+Your+one+time+OTP+code+is:+" + OTP +
+                "+Reset+your+password+by+visiting+the+link:+" + resetURL +
                 "+-XploreLanka+by+InforMates";
         String url ="http://textit.biz/sendmsg/index.php?id=" + username + "&pw=" + password + "&to=" + contactNo + "&text=" + message;
         URL textit = new URL(url);
@@ -47,7 +48,9 @@ public class Recover {
         System.out.println("[SMS GATEWAY] - OTP code: " + OTP);
     }
 
-    public boolean verifyMail(String mail, String name) {
+    public boolean verifyMail(String mail, String name,Integer userid) {
+        String resetURL = "http://174.138.49.104/index.php?userid=" + userid + "&name=" + name ;
+
         final String username = "xplorelanka@gmail.com";
         final String password = "informates@2020";
 
@@ -69,9 +72,9 @@ public class Recover {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(String.valueOf(mail)));
-            message.setSubject("Verification code from XploreLanka");
+            message.setSubject("Password Reset");
             message.setText("Welcome To Xplore Lanka\n" +
-                    "Hi " + name + ", your one-time verification code is: " + OTP + ". \n" +
+                    "Hi " + name + ",you can reset your password by visiting the link: " + resetURL + ". \n" +
                     "               -XploreLanka by InforMates");
 
             Transport.send(message);

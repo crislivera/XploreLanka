@@ -79,11 +79,11 @@ public class DBConnector {
                 System.out.println("[SERVER] " + timestamp + " - Successfully logged in by Admin: " + username);
                 break;
             } else{
-                obj.setfName(resultSet.getString(""));
-                obj.setlName(resultSet.getString(""));
+                obj.setfName("");
+                obj.setlName("");
                 obj.setPassword("");
-                obj.setUsername(resultSet.getString(""));
-                obj.setContactNo(resultSet.getString(""));
+                obj.setUsername("");
+                obj.setContactNo("");
                 System.out.println("[SERVER] " + timestamp + " - No Admin found! ");
             }
         }
@@ -208,14 +208,14 @@ public class DBConnector {
                 System.out.println("[SERVER] " + timestamp + " - Successfully logged in by User: " + credentials.getUsername());
                 break;
             }else {
-                obj.setfName(resultSet.getString(""));
-                obj.setlName(resultSet.getString(""));
-                obj.setAddress(resultSet.getString(""));
-                obj.setContact(resultSet.getString(""));
-                obj.setEmail(resultSet.getString(""));
-                obj.setUsername(resultSet.getString(""));
-                obj.setPassword(resultSet.getString(""));
-                obj.setUserID(resultSet.getInt(""));
+                obj.setfName("");
+                obj.setlName("");
+                obj.setAddress("");
+                obj.setContact("");
+                obj.setEmail("");
+                obj.setUsername("");
+                obj.setPassword("");
+                obj.setUserID(0);
                 System.out.println("[SERVER] " + timestamp + " - No user found! ");
             }
         }
@@ -460,13 +460,13 @@ public class DBConnector {
         System.out.println("[SERVER] " + timestamp + " - OTP generated: " + recover.getOTP());
 
         try {
-            recover.sendMessage(mobileNo, name);
+            recover.sendMessage(mobileNo, name,userId);
         }catch (IOException ex){
             System.out.println("[SERVER] " + timestamp + " - error in sending recovery SMS: " + ex);
             return false;
         }
 
-        if(recover.verifyMail(email,name)){
+        if(recover.verifyMail(email,name,userId)){
             System.out.println("[SERVER] " + timestamp + " - Success in sending recovery email" );
         }else {
             System.out.println("[SERVER] " + timestamp + " - error in sending recovery Email " );

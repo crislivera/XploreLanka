@@ -48,8 +48,6 @@ public class User_API {
         return controller.deleteSchedule(id);
     }
 
-
-
     //get the user object from the frontend that is to be deleted
     @PostMapping("/deleteUser")
     @ResponseBody
@@ -63,8 +61,6 @@ public class User_API {
     public User updateUser(@RequestBody User user) throws SQLException{
         return controller.updateUser(user);
     }
-
-
 
     //get the session object from frontend and save it temporarily in database
     @PostMapping("/setPlace")

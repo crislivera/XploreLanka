@@ -15,7 +15,8 @@ public class DBConnector {
     private java.sql.Connection connection;
     private Statement statement;
     private ResultSet resultSet;
-    String connectionString = "jdbc:mysql://159.203.105.235/xploreLanka";
+    String connectionString1 = "jdbc:mysql://159.203.105.235/xploreLanka";
+    String connectionString2 = "jdbc:mysql://159.203.105.235/xploreLankaPrediction";
     String username = "admin";
     String password = "rusiru@1999";
     private PreparedStatement preparedStatement = null;
@@ -25,7 +26,7 @@ public class DBConnector {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(connectionString, username, password);
+            connection = DriverManager.getConnection(connectionString1, username, password);
             System.out.println("[SERVER] " + timestamp + " - Connected to the Server");
             statement = connection.createStatement();
 
@@ -490,7 +491,59 @@ public class DBConnector {
         return true;
     }
 
-    public Prediction getPrediction(Prediction prediction) {
-        return null;
+    public Prediction getPrediction(Prediction prediction) throws SQLException {
+
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(connectionString2, username, password);
+            System.out.println("[SERVER] " + timestamp + " - Connected to the Server");
+            statement = connection.createStatement();
+
+        } catch (Exception ex) {
+            System.out.println("[SERVER]" + timestamp + " - Connection error...\n" + ex);
+        }
+
+
+        timestamp = new Timestamp(System.currentTimeMillis());
+        query = "SELECT * " + "FROM Holidays";
+        resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()){
+            java.sql.Date date = resultSet.getDate("date");
+            if (prediction.getDate(new java.util.Date(date.getTime())).equals(resultSet.getDate("Date"))){
+
+//                prediction.setDate(resultSet.getDate("Date"));
+                prediction.setHolidayName(resultSet.getString("holiday_name"));
+                prediction.setPoya(resultSet.getBoolean("poya"));
+                prediction.setPublic(resultSet.getBoolean("public"));
+                prediction.setBank(resultSet.getBoolean("bank"));
+                prediction.setMercantile(resultSet.getBoolean("merchantile"));
+            }
+        }
+
+        System.out.println("[SERVER] " + timestamp + " - Successfully returned details");
+
+        try {
+            query = "SELECT *"  + "FROM " + prediction.getCity().toLowerCase();
+            System.out.println(query);
+            java.util.Date date = prediction.getDate(new java.util.Date());
+            prediction.setDate(date);
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()){
+                if (prediction.getDate(new java.util.Date(date.getTime())).equals(resultSet.getDate("Date"))){
+
+                    prediction.setWeather(resultSet.getString("weather_des"));
+                    prediction.setCrowd(resultSet.getInt("crowd"));
+                }
+            }
+
+        }catch (Exception ex){
+            System.out.println("[SERVER] " + timestamp + " - Error in get details : " + ex.getMessage());
+        }
+
+        return prediction;
     }
 }

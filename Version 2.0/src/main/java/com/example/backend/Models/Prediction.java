@@ -13,29 +13,14 @@ public class Prediction {
     Boolean isBank = false;
     Boolean isMercantile = false;
 
-    public Prediction() {
-
-    }
-
+    //used to initialise date and city that comes from the frontend
     public Prediction(Date date, String city) {
         this.date = date;
         this.city = city;
     }
 
-    public Prediction(Date date, String city, String weather, Integer crowd, String holidayName, Boolean isPoya, Boolean isPublic, Boolean isBank, Boolean isMercantile) {
-        this.date = date;
-        this.city = city;
-        this.weather = weather;
-        this.crowd = crowd;
-        this.holidayName = holidayName;
-        this.isPoya = isPoya;
-        this.isPublic = isPublic;
-        this.isBank = isBank;
-        this.isMercantile = isMercantile;
-    }
-
-    public Date getDate() {
-        return date;
+    public Date getDate(Date date) {
+        return this.date;
     }
 
     public void setDate(Date date) {

@@ -96,7 +96,7 @@ public class BackendControllers {
     }
 
     //connect API and database to return predicted data of a city according to date
-    public Prediction getPrediction(Prediction prediction) {
+    public Prediction getPrediction(Prediction prediction) throws SQLException {
         return  connector.getPrediction(prediction);
     }
 }

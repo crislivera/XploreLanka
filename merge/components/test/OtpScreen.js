@@ -2,7 +2,6 @@ import * as React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity,Alert ,AsyncStorage} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import axios from 'axios';
-//import { add } from 'react-native-reanimated';
 
 export default class OtpScreen extends React.Component {
  
@@ -41,8 +40,9 @@ export default class OtpScreen extends React.Component {
         password:password
       }) 
 
-      if (fName !== null && lName!==null && address!==null && contact!==null && email!==null && username!==null && password !==null) {
+      if (fName != null || lName!=null || address!=null && contact!=null && email!=null && username!=null && password !=null) {
         console.log('Values are not null')
+        //console.log(this.state.fName)
       }
     } catch (error) {
       console.log('Error')
@@ -67,15 +67,8 @@ export default class OtpScreen extends React.Component {
       axios.post('https://xplorelanka.herokuapp.com/resendOTP',data)
       .then(response=>{
       console.log(response)
-      Alert.alert(JSON.stringify(response))
-      var var1 = JSON.stringify(response.data)
-      if(var1==""){
-        console.log('Successfully sent the code via SMS!')
-        //Alert.alert(alert,'Successfully sent the code via SMS!')                 
-      }else{
-        Alert.alert('Error in sending the code');
-      }
-        })
+      Alert.alert(alert,'Successfully sent your verification code via SMS!')
+      })
     }catch (error) {       
        console.log(error)
     }        
@@ -98,15 +91,7 @@ export default class OtpScreen extends React.Component {
       axios.post('https://xplorelanka.herokuapp.com/resendMail',data)
       .then(response=>{
       console.log(response)
-      console.log(response.data)
-      var var1 = response.data
-      if(var1==""){
-        console.log('Successfully sent the code via e-mail!')
-        Alert.alert('Successfully sent the code via e-mail!')                 
-        
-      }else{
-        Alert.alert('Error in sending the code');
-      }
+      Alert.alert(alert,'Successfully sent your verification code via E-mail!')
         })
     }catch (error) {       
        console.log(error)
@@ -114,7 +99,7 @@ export default class OtpScreen extends React.Component {
   
 } 
 
-checkOTP = ()=>{
+verifyOTP = ()=>{
 
   const data={
     fName:this.state.fName,
@@ -130,7 +115,7 @@ checkOTP = ()=>{
   console.log(data);
 
     if(this.state.otp === '') {
-      Alert.alert(Alert,'Please enter the verification code');
+      alert('Please enter the verification code');
     } 
     else {
       try {
@@ -159,7 +144,6 @@ checkOTP = ()=>{
 render() {
   return (
     <View style={styles.container}>
-  
       <Text style={styles.text} > Enter your verification code </Text>
       <OTPInputView style={{width: '70%', height: 100}}
         pinCount={6}
@@ -172,8 +156,8 @@ render() {
 
       <TouchableOpacity
           style={[styles.buttonContainer, styles.continueButton]}
-          onPress={() => this.checkOTP()}>
-        <Text style={styles.btnText}>Continue</Text>
+          onPress={() => this.verifyOTP()}>
+        <Text style={styles.btnText}>VERIFY</Text>
       </TouchableOpacity>
 
         <Text 
@@ -234,7 +218,6 @@ const styles = StyleSheet.create({
     marginBottom:20,
     width:200,    
     borderWidth: 1,
-    borderRadius:30,
     borderColor:"#1c39bb"
   },
   continueButton: {
@@ -265,6 +248,7 @@ const styles = StyleSheet.create({
     marginBottom:15,
     fontSize:17,
     fontWeight:'bold'
+   
   },
   text2: {
     color: '#1c39bb',
@@ -273,7 +257,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal:20,
     marginTop:10,
-    fontSize:17,
+    fontSize:15,
+    fontWeight:'bold',
     
   }
 });

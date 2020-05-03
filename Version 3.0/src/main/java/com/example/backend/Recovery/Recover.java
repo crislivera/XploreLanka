@@ -37,7 +37,7 @@ public class Recover {
     }
 
     public void sendMessage(String contactNo, String name,Integer userid) throws IOException {
-        String resetURL = "http://174.138.49.104/index.php?userid=" + userid + "&name=" + name ;
+        String resetURL = "http://174.138.49.104/index.php?userid=" + userid ;
         String message = "Hi+" + name +
                 "+Reset+your+password:+" + resetURL;
         String url ="http://textit.biz/sendmsg/index.php?id=" + username + "&pw=" + password + "&to=" + contactNo + "&text=" + message;
@@ -53,7 +53,7 @@ public class Recover {
     }
 
     public boolean verifyMail(String mail, String name,Integer userid, String YOUR_DOMAIN_NAME, String API_KEY) {
-        String resetURL = "http://174.138.49.104/index.php?userid=" + userid + "&name=" + name ;
+        String resetURL = "http://174.138.49.104/index.php?userid=" + userid ;
 
         String message = "Hi " + name + ", use the given link to reset your password : " + resetURL;
 
@@ -62,7 +62,7 @@ public class Recover {
             HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + YOUR_DOMAIN_NAME + "/messages")
                     .basicAuth("api", API_KEY)
                     .queryString("from", "XploreLanka noreply@xplorelanka.lk")
-                    .queryString("to", "rusiruhfdo@gmail.com")
+                    .queryString("to", mail)
                     .queryString("subject", "Reset Password")
                     .queryString("text", message)
                     .asJson();

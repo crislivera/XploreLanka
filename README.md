@@ -3,6 +3,7 @@
 1. Rusiru Fernando - [@RuFerdZ](https://github.com/RuFerdZ)
 2. Hasani Dilhari - [@HasaniD](https://github.com/HasaniD)
 
+
 ## Technology Used : [Spring Boot(Java)](https://spring.io/projects/spring-boot)
 
 - Spring Boot is a project that is built on the top of the Spring Framework. It provides an easier and faster way to set up, configure, and run both simple and web-based applications.
@@ -10,7 +11,7 @@
 
 
 ## External Tools, APIs and Gateways used
-- [Mailgun](https://www.mailgun.com/)<br
+- [Mailgun](https://www.mailgun.com/)<br>
 _Powerful Transactional Email APIs that enable you to send, receive, and track emails_
 ```
         <dependency>

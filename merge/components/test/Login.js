@@ -17,11 +17,6 @@ export default class Login extends React.Component {
      pwd:this.state.pwd
     }
 
-    AsyncStorage.setItem('username',this.state.username)
-    AsyncStorage.setItem('pwd',this.state.pwd)
-
-    console.log(data)
-
     if(this.state.username == '' || this.state.pwd == '') {
       Alert.alert(alert,'Please fill all the fields!');
     } 
@@ -34,11 +29,21 @@ export default class Login extends React.Component {
           var username = response.data.username
           var password = response.data.password
           var verify = JSON.stringify(response.data.verify)
-          console.log(this.state.username)
-          console.log(this.state.pwd)
           if(username == this.state.username && password == this.state.pwd  && verify =="true"){
             console.log('User logged-in successfully!')
-            this.props.navigation.navigate("Plan")
+
+            AsyncStorage.setItem('fName',response.data.fName)
+            AsyncStorage.setItem('lName',response.data.lName)
+            AsyncStorage.setItem('address',response.data.address)
+            AsyncStorage.setItem('contact',response.data.contact)
+            AsyncStorage.setItem('email',response.data.email)
+            AsyncStorage.setItem('username',response.data.username)
+            AsyncStorage.setItem('pwd',response.data.password)
+            AsyncStorage.setItem('userID',JSON.stringify(response.data.userID))
+
+            this.props.navigation.navigate("Plan",{
+              userID:this.state.userID
+            })
 
           }else if(username==this.state.username && password==this.state.pwd  && verify =="false"){
             Alert.alert('You need to verify your account');
@@ -67,8 +72,12 @@ export default class Login extends React.Component {
       } catch (error) {
           console.log("error")
       }
+      
     }
+    
   }
+  
+ 
 
   render() {
     return (
@@ -82,19 +91,20 @@ export default class Login extends React.Component {
         </View> 
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
-            <TextInput style={styles.inputs}
+            <TextInput 
+                style={styles.inputs}
                 placeholder="Username"
                 keyboardType="default"
-                underlineColorAndroid='transparent'
                 value={this.state.username}
                 onChangeText={(username) => this.setState({username})}/>
           </View>
         
           <View style={styles.inputContainer}>
-            <TextInput style={styles.inputs}
+            <TextInput 
+                style={styles.inputs}
                 placeholder="Password"
+                maxLength={50}
                 secureTextEntry={true}
-                underlineColorAndroid='transparent'
                 value={this.state.pwd}
                 onChangeText={(pwd) => this.setState({pwd})}/>
           </View>
@@ -128,7 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+   backgroundColor:'#fff'
   },
   logo:{
     width:250,
@@ -164,7 +174,7 @@ const styles = StyleSheet.create({
   inputs:{
     height:45,
     marginLeft:16,
-    borderBottomColor: '#FFFFFF',
+    borderBottomColor: '#fff',
     flex:1,
   },
   buttonContainer: {

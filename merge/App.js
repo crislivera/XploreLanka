@@ -18,7 +18,10 @@ import Plan from './screens/Plan';
 import SettingsScreen from './components/test/SettingsScreen';
 import Login from './components/test/Login';
 import AccountScreen from './components/test/AccountScreen';
-import Notifications from './components/test/Notifications';
+import UpdateFirstname from './components/test/UpdateFirstname';
+import UpdateLastname from './components/test/UpdateLastname';
+import UpdateAddress from './components/test/UpdateAddress';
+import ChangePassword from './components/test/ChangePassword';
 import About from './components/test/About';
 import Signup from './components/test/Signup';
 import ForgotPassword from './components/test/ForgotPassword';
@@ -109,7 +112,7 @@ const HomeScreen=({navigation}) =>{
 //     <SettingsNavigator/>
     
 //   );
-// };screenOptions={{headerShown: false}}
+// };
 
 const HomeTabNavigator = ({navigation, route}) => {
   
@@ -246,7 +249,7 @@ const LoginNavigator = ({navigation,route})=>{
     <LoginStack.Screen options={{header: () => null}} name="Login" component={Login}/>
     <LoginStack.Screen name="Signup" component={Signup}/>
     <LoginStack.Screen name="ForgotPassword" component={ForgotPassword} options={{ title: null}}/>
-    <LoginStack.Screen name="Plan" component={Plan}/>
+    <LoginStack.Screen name="Plan" component={PlanScreen}/>
     <LoginStack.Screen options={{header: () => null}} name="OtpScreen" component={OtpScreen}/>
   </LoginStack.Navigator>
   );
@@ -263,8 +266,11 @@ const SettingsNavigator =({navigation,route})=>{
   return(
   <SettingsStack.Navigator>
     <SettingsStack.Screen name="SettingsScreen" component={SettingsScreen} options={{ title: 'Settings'}}/>
-    <SettingsStack.Screen name="AccountScreen" component={AccountScreen} options={{ title: 'Welcome'}}/> 
-    <SettingsStack.Screen name="Notifications" component={Notifications} />
+    <SettingsStack.Screen name="AccountScreen" component={AccountScreen} options={{ title: 'Welcome to your account'}}/> 
+    <SettingsStack.Screen name="UpdateFirstname" component={UpdateFirstname} options={{ title: 'Update your first name'}}/>
+    <SettingsStack.Screen name="UpdateLastname" component={UpdateLastname} options={{ title: 'Update your last name'}}/>
+    <SettingsStack.Screen name="UpdateAddress" component={UpdateAddress} options={{ title: 'Update your Address'}}/>
+    <SettingsStack.Screen name="ChangePassword" component={ChangePassword} options={{ title: 'Change your Password'}}/>
     <SettingsStack.Screen name="About" component={About} options={{ title: 'About'}}/>
     
   </SettingsStack.Navigator>

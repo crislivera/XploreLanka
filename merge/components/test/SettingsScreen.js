@@ -1,43 +1,79 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, Text, View,Image,AsyncStorage } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 
-export default function SettingsScreen({navigation}) {
+export default class SettingsScreen extends React.Component { 
+  constructor(props){
+    super(props)
+    this.state = { 
+      fName: '',
+      lName:'',
+      address: '',
+      contact:'',
+      email: '',
+      username:'', 
+      password: '',
+      otp:'',
+      userID : ''
+  }
+  }
+
+  checkUserLogin = async () => {
+      const fName = await AsyncStorage.getItem('fName');
+      const lName = await AsyncStorage.getItem('lName');
+      const address = await AsyncStorage.getItem('address');
+      const contact = await AsyncStorage.getItem('contact');
+      const email = await AsyncStorage.getItem('email');
+      const username = await AsyncStorage.getItem('username');
+      const password = await AsyncStorage.getItem('password');
+      const userID = await AsyncStorage.getItem('userID');
+
+      this.setState({
+        fName:fName,
+        lName:lName,
+        address:address,
+        contact:contact,
+        email:email,
+        username:username,
+        password:password,
+        userID:userID
+      }) 
+
+      if (fName != null || lName!=null || address!=null && contact!=null && email!=null && username!=null && password !=null && userID !=null) {
+        console.log('user is logged in')
+        this.props.navigation.navigate("AccountScreen")
+
+      }
+      else{
+        alert("Please login to see your account")
+      }
+    
+  };
+
+  render(){
   return (
     <View style={styles.container}>
     <ScrollView style={styles.contentContainer}>
     <OptionButton
         icon="md-person"
         label="Account"
-        onPress={ ()=> navigation.navigate('AccountScreen')}
+        onPress={this.checkUserLogin}
       />
 
-      <OptionButton
-        icon="md-notifications"
-        label="Notifications"
-        onPress={ ()=> navigation.navigate('Notifications')}
-      />
-
+      
       <OptionButton
         icon="ios-alert"
         label="About"
-        onPress={ ()=> navigation.navigate('About')}
+        onPress={ ()=> this.props.navigation.navigate('About')}
       />
 
-      <OptionButton
-        icon="ios-log-out"
-        label="Logout"
-        onPress={()=> Logout(this)}
-        isLastOption
-      />
       </ScrollView>
 
       <View style={styles.tabBarInfoContainer}>
         <Text style={styles.tabBarInfoText}>From</Text>
         <View style={styles.infoTextContainer}>
-          {/* <Text style={styles.infoText}>Informates</Text> */}
           <View style={styles.logoContainer}>
                 <Image
                   style = {styles.logo}
@@ -47,20 +83,17 @@ export default function SettingsScreen({navigation}) {
         </View>
       </View>
    </View>
-    
   );
 }
-
-function Logout(){
-  alert('logout')
 }
+
 
 function OptionButton({ icon, label, onPress, isLastOption }) {
   return (
     <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.optionIconContainer}>
-          <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
+          <Ionicons name={icon} size={22} color="#1c39bb" />
         </View>
         <View style={styles.optionTextContainer}>
           <Text style={styles.optionText}>{label}</Text>
@@ -73,7 +106,7 @@ function OptionButton({ icon, label, onPress, isLastOption }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   
+    backgroundColor: '#fff',
   },
   contentContainer: {
     paddingTop: 15,
@@ -86,12 +119,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 15,
     paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: 0,
     borderColor: '#ededed',
-  },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   optionText: {
     fontSize: 15,
@@ -108,17 +137,17 @@ const styles = StyleSheet.create({
   },
   tabBarInfoContainer: {
     backgroundColor:'#fff',
-    flex:1,
+    flex:0.3,
     position: 'relative',
     ...Platform.select({
       ios: {
         shadowColor: 'black',
         shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
-        shadowRadius: 1,
+        shadowRadius: 0,
       },
       android: {
-        elevation: 5,
+        elevation: 0,
      
       },
     }),
@@ -141,6 +170,6 @@ const styles = StyleSheet.create({
    alignItems: 'flex-start',
     flexGrow:1,
     justifyContent:'center', 
-    backgroundColor:'red'
+  
   }
 });

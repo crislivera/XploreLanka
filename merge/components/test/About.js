@@ -1,97 +1,96 @@
-import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import {StyleSheet,Text,View,Image,AsyncStorage} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
-export default function About() {
+export default class About extends React.Component {
+
+  render(){
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View></View>
+    <ScrollView style={styles.container}>
+      
+      <View style={styles.logoContainer}>
+        <Image
+          style = {styles.logo}
+          source={require('../../assets/xl.png')}/>
+        </View>
+        <View style={styles.textContainer}>
+
+        <Text style={styles.text1}>
+          Planning a trip to Sri Lanka? Why not plan a perfect trip with all the information in just one go.
+          XploreLanka is a simple to use, Srilankan based, Journey Planning Application, where you can workout on your journey plan based on the weather, crowd, and Day that you want to visit a particular place in srilanka.
+        </Text>
+
+        <View style={styles.text2}>
+        
+        <Text style={styles.line1}>Contact us via</Text>
+        <Text style={styles.line2}>Email : xplorelanka@gmail.com</Text>
+        
+        <Text style={styles.line3}>Tel : 0763358718/ 0776236886</Text>
+        
+        <Text style={styles.line4}>Location : 57, Ramakrishna Rd, Colombo 00600</Text>
+       
+        </View>
+        
+        </View>
     </ScrollView>
 
   );
 }
-
-function OptionButton({ icon, label, onPress, isLastOption }) {
-  return (
-    <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.optionIconContainer}>
-          <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
-        </View>
-        <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>{label}</Text>
-        </View>
-      </View>
-    </RectButton>
-  );
 }
-
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
-  },
-  contentContainer: {
-    paddingTop: 15,
+    backgroundColor: '#fff',
   },
   
-  optionIconContainer: {
-    marginRight: 12,
+  
+  logo:{
+    width:170,
+    height:170,
+    margin:15,
+  
   },
-  option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: '#ededed',
-  },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  optionText: {
-    fontSize: 15,
-    alignSelf: 'flex-start',
-    marginTop: 1,
-  },
-  codeHighlightText: {
-    color:"blue",
-    fontSize:20,
-  },
-  codeHighlightContainer: {
-    borderRadius:7,
-    paddingHorizontal: 4,
-  },
-  tabBarInfoContainer: {
-    position: 'relative',
-    bottom:0 ,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'flex-start',
-    backgroundColor: '#fdfdfd',
-    paddingVertical: 20,
-    paddingLeft:25,
-    marginTop:235,
+  logoContainer:{
+    alignItems: 'center',
+    flexGrow:1,
+    justifyContent:'flex-start',  
     
   },
-  tabBarInfoText: {
-    fontSize: 15,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'left',
-    paddingLeft:5,
+  textContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    marginLeft:20,
+    marginRight:20,
+  },
+  text1:{
+    fontSize:16,
+  },
+
+  text2:{
+    fontSize:16,
+    marginTop:15
+  },
+  line1:{
+    fontSize:16,
+    marginTop:15,
+    fontWeight:'bold',
+    color:'blue'
+  },
+  line2:{
+    fontSize:16,
+    marginTop:15,
+     marginLeft:20,
+  },
+  line3:{
+    fontSize:16,
+    marginTop:15,
+    marginLeft:20,
+  },
+  line4:{
+    fontSize:16,
+    marginTop:15,
+    marginLeft:20,
   },
 });

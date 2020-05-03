@@ -42,7 +42,7 @@ export default class OtpScreen extends React.Component {
 
       if (fName != null || lName!=null || address!=null && contact!=null && email!=null && username!=null && password !=null) {
         console.log('Values are not null')
-        //console.log(this.state.fName)
+   
       }
     } catch (error) {
       console.log('Error')
@@ -59,7 +59,6 @@ export default class OtpScreen extends React.Component {
       email:this.state.email,
       username:this.state.username,
       password:this.state.password,
-     
     }
     
     console.log(data);
@@ -127,7 +126,6 @@ verifyOTP = ()=>{
         if(var1=="true"){
           console.log('User verified successfully!')
           Alert.alert(alert,'Successfully verified')                
-          
           this.props.navigation.navigate("Login")
         }else{
           Alert.alert('Verification failed. Please try again');
@@ -135,11 +133,9 @@ verifyOTP = ()=>{
       })
     } catch (error) {
       console.log(error)
-    }
-         
+    }       
 }
 } 
-
 
 render() {
   return (

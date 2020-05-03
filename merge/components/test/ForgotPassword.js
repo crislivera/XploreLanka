@@ -3,7 +3,6 @@ import { Text, View, StyleSheet,TextInput,TouchableOpacity,AsyncStorage} from 'r
 import axios from 'axios';
 
 export default class ForgotPassword extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +12,9 @@ export default class ForgotPassword extends React.Component {
 
   sendUsername =() => {
     
-    const data = {username : this.state.username}
+    const data = {
+      username : this.state.username
+    }
     AsyncStorage.setItem('username',this.state.username)
     console.log(data);
 
@@ -22,7 +23,9 @@ export default class ForgotPassword extends React.Component {
     } 
     else {
       try {
-        axios.get('https://xplorelanka.herokuapp.com/checkUser?username',data) 
+        console.log("data : "+data)
+        const url ='https://xplorelanka.herokuapp.com/checkUser?username='+data.username; 
+        axios.get(url) 
         .then(response=>{
           console.log(data);
           console.log(response)
@@ -38,7 +41,7 @@ export default class ForgotPassword extends React.Component {
             }
        })
       } catch (error) {
-        console.log(error)
+        console.log('[ERROR] Get method '+error)
       }
     }
   }  

@@ -37,12 +37,12 @@ export default class Signup extends React.Component {
 
     if (isNaN(value)) {
       Alert.alert('Enter a valid contact number');
+      return false
     } else {
-      this.setState({
-        contact: value,
-      });
+      this.setState({contact: value,});
       console.log('Contact number is valid');
     }
+    return true
   }
     
     signupUser = () => {
@@ -140,7 +140,7 @@ export default class Signup extends React.Component {
             style={styles.input}
             placeholder="Mobile number[Country Code][Area Code][Phone Num]"
             keyboardType="phone-pad"
-            maxLength={11}
+            maxLength={15}
             value={this.state.contact}
             onChangeText={(contact) => this.setState({contact})} 
           />    

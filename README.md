@@ -10,13 +10,21 @@
 
 
 ## External Tools, APIs and Gateways used
-- ~~[Mailgun](https://www.mailgun.com/)<br>~~
-(**used for testing only**)<br>
+- [Mailgun](https://www.mailgun.com/)<br
 _Powerful Transactional Email APIs that enable you to send, receive, and track emails_
+```
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
 
-- ~~[Twilio](https://www.twilio.com/)<br>~~
-(**used for testing only**)<br>
-_Twilio allows software developers to programmatically make and receive phone calls, send and receive text messages, and perform other communication functions using its web service APIs._
+        <dependency>
+            <groupId>net.sargue</groupId>
+            <artifactId>mailgun</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+```
 
 - [Postman Application](https://www.postman.com/)<br>
 _Used to quickly and easily send REST requests directly within Postman to the Backend._
@@ -24,7 +32,12 @@ _Used to quickly and easily send REST requests directly within Postman to the Ba
 - [TEXTIT.BIZ SMS Gateway](http://textit.biz/)<br>
 _SMS Gateway to send and receive text messages_
 
-- [JavaMail API](https://javaee.github.io/javamail/)<br>
+- ~~[Twilio](https://www.twilio.com/)<br>~~
+(**used for testing only**)<br>
+_Twilio allows software developers to programmatically make and receive phone calls, send and receive text messages, and perform other communication functions using its web service APIs._
+
+- ~~[JavaMail API](https://javaee.github.io/javamail/)~~<br>
+(**used for testing only**)<br>
 _The JavaMail API provides a platform-independent and protocol-independent framework to build mail and messaging applications. The JavaMail API is available as an optional package for use with the Java SE platform and is also included in the Java EE platform._
 ```
         <dependencies>

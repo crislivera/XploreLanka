@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Prediction {
     Date date = null;
+    String dayOfWeek = null;
     String city = null;
     String weather = null;
     Integer crowd = null;
@@ -19,12 +20,20 @@ public class Prediction {
         this.city = city;
     }
 
-    public Date getDate(Date date) {
+    public Date getDate() {
         return this.date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public String getCity() {
@@ -95,6 +104,7 @@ public class Prediction {
     public String toString() {
         return "Prediction{" +
                 "date=" + date +
+                ", dayOfWeek='" + dayOfWeek + '\'' +
                 ", city='" + city + '\'' +
                 ", weather='" + weather + '\'' +
                 ", crowd=" + crowd +

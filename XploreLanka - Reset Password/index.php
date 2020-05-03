@@ -20,9 +20,8 @@
 	<?php
 		include ('db.php');
 
-		if (isset( $_GET['userid']) && isset($_GET['name'])){
+		if ( isset( $_GET['userid'] )){
 			$userid =  $_GET['userid'];
-			$name = $_GET['name'];
 			$sql = "SELECT * FROM recoverUser WHERE userID=$userid";
 			$result = mysqli_query($conn, $sql);
 

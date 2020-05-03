@@ -22,7 +22,7 @@
  <div class="col">
 
     <?php  
-    echo "<label class='col-form-label text-capitalize text-center text-danger shadow-none d-flex justify-content-center align-items-center' style='filter: blur(0px) brightness(83%);margin: 5% 0 0 0;font-weight: bold;color: #107ca7;'>Hi $name, your password has been successfully changed!<br><br>Switch to XploreLanka App and sign in.<br><br>Thank you for using our services<br></label>";
+    echo "<label class='col-form-label text-capitalize text-center text-danger shadow-none d-flex justify-content-center align-items-center' style='filter: blur(0px) brightness(83%);margin: 5% 0 0 0;font-weight: bold;color: #107ca7;'>Hi there, your password has been successfully changed!<br><br>Switch to XploreLanka App and sign in.<br><br>Thank you for using our services<br></label>";
 
 
 // code do delete from recover

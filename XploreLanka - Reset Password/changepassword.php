@@ -26,7 +26,6 @@
             <div class="form-group"><input class="border rounded form-control" type="password" name="confirmPassword" placeholder="Confirm Password" minlength="8" required=""></div>
             <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: #40C3F7;">Change Password</button></div>
             <?php
-            echo "<input type=hidden name=fname value=$name>";
             echo "<input type=hidden name=userid value=$userid>";
              ?>
         </form>

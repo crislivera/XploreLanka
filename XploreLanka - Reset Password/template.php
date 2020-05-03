@@ -22,7 +22,6 @@
         if (isset($_POST["password"])&&isset($_POST["confirmPassword"])){
              $pwd = $_POST["password"];
              $cpwd = $_POST["confirmPassword"];
-             $name = $_POST['fname'];
              $userid = $_POST['userid'];
 
 

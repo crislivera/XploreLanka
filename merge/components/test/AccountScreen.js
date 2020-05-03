@@ -73,7 +73,11 @@ export default class AccountScreen extends React.Component {
       <ScrollView style={styles.container}>
         <View style={styles.header}>
           <View style={styles.headerContent}>
+<<<<<<< HEAD
           
+=======
+            <Button></Button>
+>>>>>>> 6417f837251fc43b317f4c5d88bba038bf6e3514
           <Image style={styles.avatar}
              source={require('../../assets/user.png')}/>
           <Text style={styles.name}> {this.state.fName} {this.state.lName}</Text>

@@ -12,7 +12,10 @@ export default class Login extends React.Component {
   }
 
   login = () =>{
+<<<<<<< HEAD
     console.log('testing1')
+=======
+>>>>>>> 6417f837251fc43b317f4c5d88bba038bf6e3514
     const data = {
      username:this.state.username,
      pwd:this.state.pwd
@@ -25,7 +28,11 @@ export default class Login extends React.Component {
       try {
         axios.post('https://xplorelanka.herokuapp.com/signInUser',data) 
         .then((response)=>{
+<<<<<<< HEAD
           // console.log(response)
+=======
+          console.log(response)
+>>>>>>> 6417f837251fc43b317f4c5d88bba038bf6e3514
           console.log(JSON.stringify(response.data.username))
           var username = response.data.username
           var password = response.data.password
@@ -42,9 +49,16 @@ export default class Login extends React.Component {
             AsyncStorage.setItem('pwd',response.data.password)
             AsyncStorage.setItem('userID',JSON.stringify(response.data.userID))
 
+<<<<<<< HEAD
             this.props.navigation.navigate("Plan")
 
             // alert("You have logged in")
+=======
+            this.props.navigation.navigate("Plan",{
+              userID:this.state.userID
+            })
+
+>>>>>>> 6417f837251fc43b317f4c5d88bba038bf6e3514
           }else if(username==this.state.username && password==this.state.pwd  && verify =="false"){
             Alert.alert('You need to verify your account');
 
